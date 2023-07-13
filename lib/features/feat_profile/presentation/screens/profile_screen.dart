@@ -26,101 +26,96 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      backgroundColor: CustomColors.bgColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            const AppHeader(title: 'حساب کاربری'),
-            Padding(
-              padding: const EdgeInsets.only(top: Dimens.thirtytwo),
-              child: Text(username),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: Dimens.thirtytwo),
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                spacing: Dimens.thirtytwo,
-                runSpacing: Dimens.twenty,
-                direction: Axis.horizontal,
-                children: [
-                  ProfileItem(
-                    widget: Image.asset(AssetsManager.setting, height: 28),
-                    text: 'تنظیمات',
-                    onTap: () {
-                      logOutDialog(context, textTheme);
-                    },
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.order),
-                    text: 'سفارشات اخیر',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.location),
-                    text: 'آدرس ها',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.notify),
-                    text: 'اطلاعیه',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.opinions),
-                    text: 'نقد و نظرات',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.discount),
-                    text: 'تخفیف ها',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.presentOrder),
-                    text: 'سفارشات',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.favorite),
-                    text: 'علاقمندی ها',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.blogs),
-                    text: 'بلاگ',
-                    onTap: () {},
-                  ),
-                  ProfileItem(
-                    widget: SvgPicture.asset(AssetsManager.phone),
-                    text: 'پشتیبانی',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(bottom: Dimens.eight),
-              child: Text(
-                'اپل شاپ',
-                style: textTheme.labelSmall!.apply(
-                  color: CustomColors.grey,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: Dimens.twelve),
-              child: Text(
-                'V-1.0.00',
-                style: textTheme.labelSmall!.apply(
-                  color: CustomColors.grey,
-                ),
-              ),
-            ),
-          ],
+    return Column(
+      children: [
+        const AppHeader(title: 'حساب کاربری'),
+        Padding(
+          padding: const EdgeInsets.only(top: Dimens.thirtytwo),
+          child: Text(username),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: Dimens.thirtytwo),
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            spacing: Dimens.thirtytwo,
+            runSpacing: Dimens.twenty,
+            direction: Axis.horizontal,
+            children: [
+              ProfileItem(
+                widget: Image.asset(AssetsManager.setting, height: 28),
+                text: 'تنظیمات',
+                onTap: () {
+                  logOutDialog(context, textTheme);
+                },
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.order),
+                text: 'سفارشات اخیر',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.location),
+                text: 'آدرس ها',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.notify),
+                text: 'اطلاعیه',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.opinions),
+                text: 'نقد و نظرات',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.discount),
+                text: 'تخفیف ها',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.presentOrder),
+                text: 'سفارشات',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.favorite),
+                text: 'علاقمندی ها',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.blogs),
+                text: 'بلاگ',
+                onTap: () {},
+              ),
+              ProfileItem(
+                widget: SvgPicture.asset(AssetsManager.phone),
+                text: 'پشتیبانی',
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(bottom: Dimens.eight),
+          child: Text(
+            'اپل شاپ',
+            style: textTheme.labelSmall!.apply(
+              color: CustomColors.grey,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: Dimens.twelve),
+          child: Text(
+            'V-1.0.00',
+            style: textTheme.labelSmall!.apply(
+              color: CustomColors.grey,
+            ),
+          ),
+        ),
+      ],
     );
   }
 

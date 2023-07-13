@@ -25,4 +25,12 @@ class AssetsManager {
   static const String arrowLeftBlue = '$imagePath/arrow-left-blue.svg';
   static const String favActive = '$imagePath/fav-active.svg';
   static const String favUnactive = '$imagePath/fav-unactive.svg';
+  static const String home = '$imagePath/home.svg';
+  static const String homeActive = '$imagePath/home-active.svg';
+  static const String category = '$imagePath/category.svg';
+  static const String categoryActive = '$imagePath/category-active.svg';
+  static const String basket = '$imagePath/basket.svg';
+  static const String basketActive = '$imagePath/basket-active.svg';
+  static const String profile = '$imagePath/profile.svg';
+  static const String profileActive = '$imagePath/profile-active.svg';
 }
