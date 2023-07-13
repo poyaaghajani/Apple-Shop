@@ -78,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
                     child: SvgPicture.asset(AssetsManager.basketActive),
                   ),
                 ),
-                label: 'محصولات',
+                label: 'سبد خرید',
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(AssetsManager.profile),
