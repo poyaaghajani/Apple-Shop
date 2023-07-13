@@ -22,6 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.bgColor,
       body: SafeArea(
         child: IndexedStack(
           index: selectedBottomNavigation,

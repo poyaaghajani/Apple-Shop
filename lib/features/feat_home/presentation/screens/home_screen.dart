@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:apple_shop/core/constants/custom_colors.dart';
+import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_banner.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_category.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_header.dart';
@@ -30,27 +30,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.bgColor,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            // home header
-            const HomeHeader(),
+    return ScrollConfiguration(
+      behavior: MyBehavior(),
+      child: CustomScrollView(
+        slivers: [
+          // home header
+          const HomeHeader(),
 
-            // home banner
-            HomeBanner(controller: controller),
+          // home banner
+          HomeBanner(controller: controller),
 
-            // home categories
-            const HomeCategories(),
+          // home categories
+          const HomeCategories(),
 
-            // home hotest products
-            const HomeHotestProducts(),
+          // home hotest products
+          const HomeHotestProducts(),
 
-            // home most view products
-            const HomeMostViewProducts(),
-          ],
-        ),
+          // home most view products
+          const HomeMostViewProducts(),
+        ],
       ),
     );
   }
