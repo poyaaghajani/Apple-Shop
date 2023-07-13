@@ -48,26 +48,15 @@ class _MainScreenState extends State<MainScreen> {
             elevation: 0,
             items: [
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(AssetsManager.profile),
+                icon: SvgPicture.asset(AssetsManager.home),
                 activeIcon: Padding(
                   padding: const EdgeInsets.only(bottom: 3),
                   child: Container(
                     decoration: AppDef.defNavigationDecoration,
-                    child: SvgPicture.asset(AssetsManager.profileActive),
+                    child: SvgPicture.asset(AssetsManager.homeActive),
                   ),
                 ),
-                label: 'حساب شخصی',
-              ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(AssetsManager.basket),
-                activeIcon: Padding(
-                  padding: const EdgeInsets.only(bottom: 3),
-                  child: Container(
-                    decoration: AppDef.defNavigationDecoration,
-                    child: SvgPicture.asset(AssetsManager.basketActive),
-                  ),
-                ),
-                label: 'محصولات',
+                label: 'خانه',
               ),
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(AssetsManager.category),
@@ -81,15 +70,26 @@ class _MainScreenState extends State<MainScreen> {
                 label: 'دسته بندی',
               ),
               BottomNavigationBarItem(
-                icon: SvgPicture.asset(AssetsManager.home),
+                icon: SvgPicture.asset(AssetsManager.basket),
                 activeIcon: Padding(
                   padding: const EdgeInsets.only(bottom: 3),
                   child: Container(
                     decoration: AppDef.defNavigationDecoration,
-                    child: SvgPicture.asset(AssetsManager.homeActive),
+                    child: SvgPicture.asset(AssetsManager.basketActive),
                   ),
                 ),
-                label: 'خانه',
+                label: 'محصولات',
+              ),
+              BottomNavigationBarItem(
+                icon: SvgPicture.asset(AssetsManager.profile),
+                activeIcon: Padding(
+                  padding: const EdgeInsets.only(bottom: 3),
+                  child: Container(
+                    decoration: AppDef.defNavigationDecoration,
+                    child: SvgPicture.asset(AssetsManager.profileActive),
+                  ),
+                ),
+                label: 'حساب شخصی',
               ),
             ],
           ),
@@ -102,9 +102,9 @@ class _MainScreenState extends State<MainScreen> {
 // main screens
 List<Widget> getScreens() {
   return <Widget>[
-    ProfileScreen(),
-    BasketScreen(),
-    CategoryScreen(),
     HomeScreen(),
+    CategoryScreen(),
+    BasketScreen(),
+    ProfileScreen(),
   ];
 }

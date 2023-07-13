@@ -7,7 +7,7 @@ import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/screens/login_screen.dart';
 import 'package:apple_shop/features/feat_auth/presentation/widgets/custom_circle.dart';
-import 'package:apple_shop/features/feat_profile/presentation/screens/profile_screen.dart';
+import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,7 +83,7 @@ class SplashScreen extends StatelessWidget {
                     ),
                   );
                 } else {
-                  context.pushAndRemoveUntilRTL(ProfileScreen());
+                  context.pushAndRemoveUntilRTL(const MainScreen());
                 }
               },
               child: Container(
