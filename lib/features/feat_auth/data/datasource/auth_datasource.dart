@@ -3,7 +3,7 @@ import 'package:apple_shop/core/utils/api_exeption.dart';
 import 'package:dio/dio.dart';
 
 abstract class IAuthDatasource {
-  Future<void> singUp(AuthParams params);
+  Future<String> singUp(AuthParams params);
   Future<String> logIn(AuthParams params);
 }
 
@@ -13,18 +13,23 @@ class AuthDatasource extends IAuthDatasource {
 
   // singUp
   @override
-  Future<void> singUp(AuthParams params) async {
+  Future<String> singUp(AuthParams params) async {
     try {
-      await dio.post('collections/users/records', data: {
+      final response = await dio.post('collections/users/records', data: {
         'username': params.username,
         'password': params.password,
         'passwordConfirm': params.passwordConfirm,
       });
+
+      if (response.statusCode == 200) {
+        return response.data['username'];
+      }
     } on DioError catch (_) {
       throw ApiExeption('اینترنت خود را چک کنید');
     } catch (_) {
       throw ApiExeption('مشکلی در سرور پیش آمده');
     }
+    return 'خطای نا مشخص';
   }
 
   // login

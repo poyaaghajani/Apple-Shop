@@ -27,7 +27,7 @@ class AppTheme {
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+            const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
@@ -68,14 +68,24 @@ class AppTheme {
           fontWeight: FontWeight.w700,
           color: CustomColors.white,
         ),
-        bodyMedium: TextStyle(
-          fontSize: 18,
+        labelSmall: TextStyle(
+          fontSize: 12,
           fontWeight: FontWeight.w600,
           color: CustomColors.dark,
+        ),
+        labelMedium: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: CustomColors.blue,
         ),
         bodySmall: TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w500,
+          color: CustomColors.dark,
+        ),
+        bodyMedium: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
           color: CustomColors.dark,
         ),
       ),

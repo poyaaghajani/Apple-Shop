@@ -17,11 +17,15 @@ class AuthRepository extends IAuthRepository {
   @override
   Future<Either<String, String>> singUp(AuthParams params) async {
     try {
-      await authDatasource.singUp(params);
-      return right('خوش آمدید');
+      final username = await authDatasource.singUp(params);
+      if (username.isNotEmpty) {
+        AuthManager.saveUsername(username);
+        return right('خوش آمدید');
+      }
     } on ApiExeption catch (ex) {
       return left(ex.message!);
     }
+    return left('خطای نامشخص');
   }
 
   // login
@@ -36,6 +40,6 @@ class AuthRepository extends IAuthRepository {
     } on ApiExeption catch (ex) {
       return left(ex.message!);
     }
-    return left('h');
+    return left('خطای نامشخص');
   }
 }

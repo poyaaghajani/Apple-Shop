@@ -101,7 +101,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             }
                           },
                           (success) {
-                            AuthManager.saveUsername(_usernameController.text);
                             AuthManager.readUsername();
                             context
                                 .pushAndRemoveUntilRTL(const ProfileScreen());

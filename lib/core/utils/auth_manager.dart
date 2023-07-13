@@ -15,9 +15,9 @@ class AuthManager {
   }
 
   // read token
-  static String? readToken() {
+  static String readToken() {
     debugPrint('user token --> ${sharedPref.getString('access_token')}');
-    return sharedPref.getString('access_token');
+    return sharedPref.getString('access_token') ?? '';
   }
 
   // save username

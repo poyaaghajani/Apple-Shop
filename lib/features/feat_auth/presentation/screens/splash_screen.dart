@@ -73,8 +73,9 @@ class SplashScreen extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 var token = AuthManager.readToken();
+                var username = AuthManager.readUsername();
 
-                if (token == null) {
+                if (token.isEmpty && username.isEmpty) {
                   context.pushAndRemoveUntilRTL(
                     BlocProvider(
                       create: (context) => locator.get<LoginBloc>(),
