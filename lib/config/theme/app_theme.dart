@@ -59,6 +59,11 @@ class AppTheme {
         ),
       ),
       textTheme: const TextTheme(
+        titleSmall: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: CustomColors.dark,
+        ),
         titleMedium: TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
@@ -77,6 +82,11 @@ class AppTheme {
           fontSize: 16,
           fontWeight: FontWeight.w700,
           color: CustomColors.blue,
+        ),
+        displaySmall: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: CustomColors.grey,
         ),
         bodySmall: TextStyle(
           fontSize: 15,

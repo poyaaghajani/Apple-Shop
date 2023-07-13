@@ -1,4 +1,5 @@
 import 'package:apple_shop/core/constants/custom_colors.dart';
+import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:flutter/material.dart';
 
 class ProfileItem extends StatelessWidget {
@@ -22,8 +23,8 @@ class ProfileItem extends StatelessWidget {
         InkWell(
           onTap: onTap,
           child: Container(
-            width: 56,
-            height: 56,
+            height: DevSize.getHeight(context) / 14,
+            width: DevSize.getWidth(context) / 6.8,
             decoration: ShapeDecoration(
               color: CustomColors.blue,
               shape: ContinuousRectangleBorder(

@@ -1,5 +1,5 @@
 import 'package:apple_shop/config/theme/app_theme.dart';
-import 'package:apple_shop/features/feat_auth/presentation/screens/splash_screen.dart';
+import 'package:apple_shop/features/feat_home/presentation/screens/home_screen.dart';
 import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         Locale('en'),
         Locale('fa'),
       ],
-      home: SplashScreen(),
+      home: HomeScreen(),
     );
   }
 }
