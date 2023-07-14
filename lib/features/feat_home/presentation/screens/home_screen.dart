@@ -95,16 +95,32 @@ class _HomeScreenState extends State<HomeScreen> {
               if (state is HomeCompleted) ...[
                 state.categories.fold((errorMessage) {
                   return SliverToBoxAdapter(
-                    child: Center(
-                      child: Text(errorMessage),
+                    child: SizedBox(
+                      height: DevSize.getHeight(context) / 7.5,
+                      child: Center(
+                        child: Text(errorMessage, style: textTheme.bodySmall),
+                      ),
                     ),
                   );
                 }, (categories) {
                   return HomeCategories(categories: categories);
                 }),
+              ],
 
-                // home hotest products
-                const HomeHotestProducts(),
+              // home hotest products
+              if (state is HomeCompleted) ...[
+                state.hotestProducts.fold((errorMessage) {
+                  return SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: DevSize.getHeight(context) / 3.6,
+                      child: Center(
+                        child: Text(errorMessage, style: textTheme.bodySmall),
+                      ),
+                    ),
+                  );
+                }, (products) {
+                  return HomeHotestProducts(products: products);
+                }),
 
                 // home most view products
                 const HomeMostViewProducts(),

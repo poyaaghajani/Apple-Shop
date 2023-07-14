@@ -1,3 +1,5 @@
+import 'package:apple_shop/features/faet-product/data/datasource/product_datasource.dart';
+import 'package:apple_shop/features/faet-product/data/repository/product_repository.dart';
 import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.dart';
 import 'package:apple_shop/features/feat_auth/data/repository/auth_repository.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
@@ -31,6 +33,9 @@ Future<void> getInit() async {
   locator.registerSingleton<ICategoryDatasource>(
     CategoryRemoteDatasource(locator()),
   );
+  locator.registerSingleton<IProductDatasource>(
+    ProductRemoteDatasource(locator()),
+  );
 
   // repositories
   locator.registerSingleton<IAuthRepository>(
@@ -42,9 +47,14 @@ Future<void> getInit() async {
   locator.registerSingleton<ICategoryRepository>(
     CategoryRepository(locator()),
   );
+  locator.registerSingleton<IProductRepository>(
+    ProductRepository(locator()),
+  );
 
   // blocs
   locator.registerFactory<LoginBloc>(() => LoginBloc(locator()));
   locator.registerFactory<SingupBloc>(() => SingupBloc(locator()));
-  locator.registerSingleton<HomeBloc>(HomeBloc(locator(), locator()));
+  locator.registerSingleton<HomeBloc>(
+    HomeBloc(locator(), locator(), locator()),
+  );
 }

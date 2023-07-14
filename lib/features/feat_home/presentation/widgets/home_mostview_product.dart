@@ -56,7 +56,7 @@ class HomeMostViewProducts extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return const Padding(
                     padding: EdgeInsets.only(left: Dimens.eightTeen),
-                    child: ProductItem(),
+                    // child: ProductItem(),
                   );
                 },
               ),

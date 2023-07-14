@@ -16,7 +16,7 @@ class CategoryRemoteDatasource extends ICategoryDatasource {
       var response = await dio.get('collections/category/records');
       return response.data['items']
           .map<CategoryModel>(
-              (jsomObject) => CategoryModel.fromJson(jsomObject))
+              (jsonObject) => CategoryModel.fromJson(jsonObject))
           .toList();
     } on DioError catch (_) {
       throw ApiExeption('لیست دسته بندی از دسترس خارج شده');
