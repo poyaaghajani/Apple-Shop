@@ -4,8 +4,8 @@ import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/cached_image.dart';
-import 'package:apple_shop/features/faet-product/data/models/product_model.dart';
-import 'package:apple_shop/features/faet-product/presentation/screens/product_detail_screen.dart';
+import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
+import 'package:apple_shop/features/feat-product/presentation/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

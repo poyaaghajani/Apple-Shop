@@ -4,7 +4,7 @@ import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/product_item.dart';
-import 'package:apple_shop/features/faet-product/data/models/product_model.dart';
+import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

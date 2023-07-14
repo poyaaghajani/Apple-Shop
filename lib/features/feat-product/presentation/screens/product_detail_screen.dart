@@ -4,12 +4,12 @@ import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
-import 'package:apple_shop/features/faet-product/presentation/widgets/color_variant.dart';
-import 'package:apple_shop/features/faet-product/presentation/widgets/product_comment.dart';
-import 'package:apple_shop/features/faet-product/presentation/widgets/product_description.dart';
-import 'package:apple_shop/features/faet-product/presentation/widgets/product_gallery.dart';
-import 'package:apple_shop/features/faet-product/presentation/widgets/product_property.dart';
-import 'package:apple_shop/features/faet-product/presentation/widgets/storage_variant.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/color_variant.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/product_comment.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/product_description.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/product_gallery.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/product_property.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/storage_variant.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailScreen extends StatefulWidget {

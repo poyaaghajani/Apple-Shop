@@ -1,5 +1,5 @@
 import 'package:apple_shop/core/utils/api_exeption.dart';
-import 'package:apple_shop/features/faet-product/data/models/product_model.dart';
+import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
 import 'package:dio/dio.dart';
 
 abstract class IProductDatasource {
