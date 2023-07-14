@@ -15,13 +15,20 @@ class HomeCompleted extends HomeState {
   final Either<String, List<BannerModel>> banners;
   final Either<String, List<CategoryModel>> categories;
   final Either<String, List<ProductModel>> hotestProducts;
+  final Either<String, List<ProductModel>> bestSellerProducts;
 
   const HomeCompleted(
     this.banners,
     this.categories,
     this.hotestProducts,
+    this.bestSellerProducts,
   );
 
   @override
-  List<Object> get props => [banners, categories, hotestProducts];
+  List<Object> get props => [
+        banners,
+        categories,
+        hotestProducts,
+        bestSellerProducts,
+      ];
 }

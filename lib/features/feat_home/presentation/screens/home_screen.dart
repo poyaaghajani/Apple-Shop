@@ -8,7 +8,7 @@ import 'package:apple_shop/features/feat_home/presentation/widgets/home_banner.d
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_category.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_header.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_hotest_product.dart';
-import 'package:apple_shop/features/feat_home/presentation/widgets/home_mostview_product.dart';
+import 'package:apple_shop/features/feat_home/presentation/widgets/home_bestseller_product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,11 +63,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
 
+              // home header
+              if (state is HomeCompleted) ...[
+                const HomeHeader(),
+              ],
+
               // home banner
               if (state is HomeCompleted) ...[
-                // home header
-                const HomeHeader(),
-
                 state.banners.fold((errorMessage) {
                   return SliverToBoxAdapter(
                     child: SizedBox(
@@ -118,12 +120,25 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   );
-                }, (products) {
-                  return HomeHotestProducts(products: products);
+                }, (hotestProducts) {
+                  return HomeHotestProducts(products: hotestProducts);
                 }),
+              ],
 
-                // home most view products
-                const HomeMostViewProducts(),
+              // home best seller products
+              if (state is HomeCompleted) ...[
+                state.bestSellerProducts.fold((errorMessage) {
+                  return SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: DevSize.getHeight(context) / 3.6,
+                      child: Center(
+                        child: Text(errorMessage, style: textTheme.bodySmall),
+                      ),
+                    ),
+                  );
+                }, (bestSellerProducts) {
+                  return HomeBestSellerProducts(products: bestSellerProducts);
+                }),
               ],
             ],
           );

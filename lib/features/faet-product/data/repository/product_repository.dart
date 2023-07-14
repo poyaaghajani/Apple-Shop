@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class IProductRepository {
   Future<Either<String, List<ProductModel>>> getHotestProducts();
+  Future<Either<String, List<ProductModel>>> getBestSellerProducts();
 }
 
 class ProductRepository extends IProductRepository {
@@ -16,6 +17,16 @@ class ProductRepository extends IProductRepository {
     try {
       var hotests = await datasource.getHotestProducts();
       return right(hotests);
+    } on ApiExeption catch (ex) {
+      return left(ex.message ?? 'مشکلی در سرور پیش آمده');
+    }
+  }
+
+  @override
+  Future<Either<String, List<ProductModel>>> getBestSellerProducts() async {
+    try {
+      var bestSellers = await datasource.getBestSellerProducts();
+      return right(bestSellers);
     } on ApiExeption catch (ex) {
       return left(ex.message ?? 'مشکلی در سرور پیش آمده');
     }

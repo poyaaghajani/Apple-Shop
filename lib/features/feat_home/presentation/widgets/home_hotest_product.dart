@@ -30,7 +30,7 @@ class HomeHotestProducts extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'پر فروش ترین ها',
+                    'پر بازدید ترین ها',
                     style: textTheme.displaySmall,
                   ),
                   const Spacer(),
@@ -53,7 +53,7 @@ class HomeHotestProducts extends StatelessWidget {
                   right: Dimens.twenty,
                   top: Dimens.eightTeen,
                 ),
-                itemCount: 5,
+                itemCount: products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Padding(

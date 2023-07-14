@@ -75,6 +75,7 @@ class HomeCategories extends StatelessWidget {
                                 child: Center(
                                   child: CachedImage(
                                     imageUrl: categories[index].icon,
+                                    radius: 4,
                                   ),
                                 ),
                               )

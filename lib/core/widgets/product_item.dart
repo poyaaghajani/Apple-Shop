@@ -43,6 +43,7 @@ class ProductItem extends StatelessWidget {
                   height: DevSize.getWidth(context) / 4,
                   child: CachedImage(
                     imageUrl: product.thumbnail,
+                    radius: 8,
                   ),
                 ),
                 Positioned(

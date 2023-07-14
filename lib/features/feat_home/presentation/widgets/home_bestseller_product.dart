@@ -4,11 +4,14 @@ import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/product_item.dart';
+import 'package:apple_shop/features/faet-product/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class HomeMostViewProducts extends StatelessWidget {
-  const HomeMostViewProducts({super.key});
+class HomeBestSellerProducts extends StatelessWidget {
+  const HomeBestSellerProducts({super.key, required this.products});
+
+  final List<ProductModel> products;
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +54,12 @@ class HomeMostViewProducts extends StatelessWidget {
                   right: Dimens.twenty,
                   top: Dimens.eightTeen,
                 ),
-                itemCount: 5,
+                itemCount: products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: Dimens.eightTeen),
-                    // child: ProductItem(),
+                  return Padding(
+                    padding: const EdgeInsets.only(left: Dimens.eightTeen),
+                    child: ProductItem(product: products[index]),
                   );
                 },
               ),

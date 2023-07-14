@@ -29,7 +29,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     var banners = await bannerRepository.getBanners();
     var categories = await categoryRepository.getCategories();
     var hotestProducts = await productRepository.getHotestProducts();
+    var bestSellerProducts = await productRepository.getBestSellerProducts();
 
-    emit(HomeCompleted(banners, categories, hotestProducts));
+    emit(HomeCompleted(
+      banners,
+      categories,
+      hotestProducts,
+      bestSellerProducts,
+    ));
   }
 }
