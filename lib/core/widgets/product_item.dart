@@ -1,7 +1,9 @@
+import 'package:apple_shop/config/route/route.dart';
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
+import 'package:apple_shop/features/faet-product/presentation/screens/product_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -13,7 +15,9 @@ class ProductItem extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
 
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        context.push(const ProductDetailScreen());
+      },
       child: Container(
         width: DevSize.getWidth(context) / 2.45,
         decoration: BoxDecoration(
