@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:apple_shop/core/utils/change_banner_page.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/core/widgets/loading_widget.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController controller =
       PageController(viewportFraction: 0.93, initialPage: 0);
   Timer? _timer;
-  int _currentPage = 0;
+  final int _currentPage = 0;
 
   // init state
   @override
@@ -42,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var textTheme = Theme.of(context).textTheme;
+
     return ScrollConfiguration(
       behavior: MyBehavior(),
       child: BlocBuilder<HomeBloc, HomeState>(
@@ -59,41 +62,46 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ],
+
+              // home banner
               if (state is HomeCompleted) ...[
                 // home header
                 const HomeHeader(),
 
-                // home banner
                 state.banners.fold((errorMessage) {
                   return SliverToBoxAdapter(
-                    child: Text(errorMessage),
+                    child: SizedBox(
+                      height: DevSize.getHeight(context) / 4.5,
+                      child: Center(
+                        child: Text(errorMessage, style: textTheme.bodySmall),
+                      ),
+                    ),
                   );
                 }, (baners) {
-                  _timer ??=
-                      Timer.periodic(const Duration(seconds: 3), (Timer timer) {
-                    if (_currentPage < baners.length - 1) {
-                      _currentPage++;
-                    } else {
-                      _currentPage = 0;
-                    }
-
-                    if (controller.positions.isNotEmpty) {
-                      controller.animateToPage(
-                        _currentPage,
-                        duration: const Duration(milliseconds: 350),
-                        curve: Curves.easeIn,
-                      );
-                    }
-                  });
-
+                  changeBannerPage(
+                    timer: _timer,
+                    controller: controller,
+                    length: baners.length,
+                    currentPage: _currentPage,
+                  );
                   return HomeBanner(
                     controller: controller,
                     banners: baners,
                   );
                 }),
+              ],
 
-                // home categories
-                const HomeCategories(),
+              // home categories
+              if (state is HomeCompleted) ...[
+                state.categories.fold((errorMessage) {
+                  return SliverToBoxAdapter(
+                    child: Center(
+                      child: Text(errorMessage),
+                    ),
+                  );
+                }, (categories) {
+                  return HomeCategories(categories: categories);
+                }),
 
                 // home hotest products
                 const HomeHotestProducts(),

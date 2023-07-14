@@ -1,10 +1,15 @@
 import 'package:apple_shop/core/constants/app_defaults.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
+import 'package:apple_shop/core/extensions/color_parser.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
+import 'package:apple_shop/core/widgets/cached_image.dart';
+import 'package:apple_shop/features/feat_category/data/models/category_model.dart';
 import 'package:flutter/material.dart';
 
 class HomeCategories extends StatelessWidget {
-  const HomeCategories({super.key});
+  const HomeCategories({super.key, required this.categories});
+
+  final List<CategoryModel> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class HomeCategories extends StatelessWidget {
                   right: Dimens.twenty,
                   top: Dimens.eightTeen,
                 ),
-                itemCount: 10,
+                itemCount: categories.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Padding(
@@ -49,13 +54,14 @@ class HomeCategories extends StatelessWidget {
                                 height: DevSize.getHeight(context) / 14,
                                 width: DevSize.getWidth(context) / 6.8,
                                 decoration: ShapeDecoration(
-                                  color: Colors.teal,
-                                  shadows: const [
+                                  color: categories[index].color.parsToColor(),
+                                  shadows: [
                                     BoxShadow(
-                                      color: Colors.teal,
+                                      color:
+                                          categories[index].color.parsToColor(),
                                       blurRadius: 25,
                                       spreadRadius: -13,
-                                      offset: Offset(0.0, 15),
+                                      offset: const Offset(0.0, 15),
                                     )
                                   ],
                                   shape: ContinuousRectangleBorder(
@@ -63,16 +69,20 @@ class HomeCategories extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 height: 24,
                                 width: 24,
-                                child: Center(child: Icon(Icons.car_crash)),
+                                child: Center(
+                                  child: CachedImage(
+                                    imageUrl: categories[index].icon,
+                                  ),
+                                ),
                               )
                             ],
                           ),
                           const SizedBox(height: Dimens.ten),
                           Text(
-                            'دسته',
+                            categories[index].title ?? 'دسته بندی',
                             style: textTheme.labelSmall,
                           ),
                         ],

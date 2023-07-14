@@ -13,8 +13,10 @@ class HomeLoading extends HomeState {
 // completed
 class HomeCompleted extends HomeState {
   final Either<String, List<BannerModel>> banners;
-  const HomeCompleted(this.banners);
+  final Either<String, List<CategoryModel>> categories;
+
+  const HomeCompleted(this.banners, this.categories);
 
   @override
-  List<Object> get props => [banners];
+  List<Object> get props => [banners, categories];
 }

@@ -15,10 +15,10 @@ class BannerRemoteDatasource extends IBannerDatasource {
     try {
       var response = await dio.get('collections/banner/records');
       return response.data['items']
-          .map<BannerModel>((jsomObject) => BannerModel.fromJson(jsomObject))
+          .map<BannerModel>((jsonObject) => BannerModel.fromJson(jsonObject))
           .toList();
     } on DioError catch (_) {
-      throw ApiExeption('اینترنت خود را چک کنید');
+      throw ApiExeption('لیست بنرها از دسترس خارج شده');
     } catch (_) {
       throw ApiExeption('مشکلی در سرور پیش آمده');
     }

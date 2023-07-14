@@ -2,6 +2,8 @@ import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.da
 import 'package:apple_shop/features/feat_auth/data/repository/auth_repository.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
+import 'package:apple_shop/features/feat_category/data/datasource/category_datasource.dart';
+import 'package:apple_shop/features/feat_category/data/repository/category_repository.dart';
 import 'package:apple_shop/features/feat_home/data/datasource/banner_datasource.dart';
 import 'package:apple_shop/features/feat_home/data/repository/banner_repository.dart';
 import 'package:apple_shop/features/feat_home/presentation/bloc/home_bloc.dart';
@@ -26,6 +28,9 @@ Future<void> getInit() async {
   locator.registerSingleton<IBannerDatasource>(
     BannerRemoteDatasource(locator()),
   );
+  locator.registerSingleton<ICategoryDatasource>(
+    CategoryRemoteDatasource(locator()),
+  );
 
   // repositories
   locator.registerSingleton<IAuthRepository>(
@@ -34,9 +39,12 @@ Future<void> getInit() async {
   locator.registerSingleton<IBannerRepository>(
     BannerRepository(locator()),
   );
+  locator.registerSingleton<ICategoryRepository>(
+    CategoryRepository(locator()),
+  );
 
   // blocs
   locator.registerFactory<LoginBloc>(() => LoginBloc(locator()));
   locator.registerFactory<SingupBloc>(() => SingupBloc(locator()));
-  locator.registerSingleton<HomeBloc>(HomeBloc(locator()));
+  locator.registerSingleton<HomeBloc>(HomeBloc(locator(), locator()));
 }
