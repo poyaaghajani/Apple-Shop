@@ -9,7 +9,7 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LoadingAnimationWidget.inkDrop(
       color: CustomColors.blue,
-      size: 45,
+      size: 30,
     );
   }
 }

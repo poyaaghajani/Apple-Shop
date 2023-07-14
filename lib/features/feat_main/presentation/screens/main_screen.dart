@@ -4,9 +4,12 @@ import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/features/feat_basket/presentation/screens/basket_screen.dart';
 import 'package:apple_shop/features/feat_category/presentation/screens/category_screen.dart';
+import 'package:apple_shop/features/feat_home/presentation/bloc/home_bloc.dart';
 import 'package:apple_shop/features/feat_home/presentation/screens/home_screen.dart';
 import 'package:apple_shop/features/feat_profile/presentation/screens/profile_screen.dart';
+import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MainScreen extends StatefulWidget {
@@ -102,9 +105,12 @@ class _MainScreenState extends State<MainScreen> {
 // main screens
 List<Widget> getScreens() {
   return <Widget>[
-    HomeScreen(),
-    CategoryScreen(),
-    BasketScreen(),
-    ProfileScreen(),
+    BlocProvider(
+      create: (context) => locator.get<HomeBloc>(),
+      child: const HomeScreen(),
+    ),
+    const CategoryScreen(),
+    const BasketScreen(),
+    const ProfileScreen(),
   ];
 }

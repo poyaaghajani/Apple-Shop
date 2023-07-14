@@ -2,13 +2,21 @@ import 'package:apple_shop/core/constants/app_defaults.dart';
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
+import 'package:apple_shop/core/widgets/cached_image.dart';
+import 'package:apple_shop/features/feat_home/data/models/banner_model.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeBanner extends StatelessWidget {
-  const HomeBanner({super.key, required this.controller});
+  const HomeBanner({
+    super.key,
+    required this.controller,
+    required this.banners,
+  });
 
   final PageController controller;
+
+  final List<BannerModel> banners;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +34,13 @@ class HomeBanner extends StatelessWidget {
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   return Container(
-                    decoration: BoxDecoration(
-                      color: CustomColors.blue,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
                     margin: const EdgeInsets.symmetric(horizontal: 6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: CachedImage(
+                        imageUrl: banners[index].thumbnail,
+                      ),
+                    ),
                   );
                 },
               ),
