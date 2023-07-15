@@ -6,6 +6,8 @@ import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
 import 'package:apple_shop/features/feat_category/data/datasource/category_datasource.dart';
 import 'package:apple_shop/features/feat_category/data/repository/category_repository.dart';
+import 'package:apple_shop/features/feat_category/presentation/bloc/category/category_bloc.dart';
+import 'package:apple_shop/features/feat_category/presentation/bloc/category_detail/category_detail_bloc.dart';
 import 'package:apple_shop/features/feat_home/data/datasource/banner_datasource.dart';
 import 'package:apple_shop/features/feat_home/data/repository/banner_repository.dart';
 import 'package:apple_shop/features/feat_home/presentation/bloc/home_bloc.dart';
@@ -52,9 +54,19 @@ Future<void> getInit() async {
   );
 
   // blocs
-  locator.registerFactory<LoginBloc>(() => LoginBloc(locator()));
-  locator.registerFactory<SingupBloc>(() => SingupBloc(locator()));
+  locator.registerFactory<LoginBloc>(
+    () => LoginBloc(locator()),
+  );
+  locator.registerFactory<SingupBloc>(
+    () => SingupBloc(locator()),
+  );
   locator.registerSingleton<HomeBloc>(
     HomeBloc(locator(), locator(), locator()),
+  );
+  locator.registerSingleton<CategoryBloc>(
+    CategoryBloc(locator()),
+  );
+  locator.registerFactory<CategoryDetalBloc>(
+    () => CategoryDetalBloc(locator()),
   );
 }
