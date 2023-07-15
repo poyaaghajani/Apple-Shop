@@ -1,10 +1,15 @@
+import 'package:apple_shop/config/route/route.dart';
 import 'package:apple_shop/core/constants/app_defaults.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/extensions/color_parser.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/cached_image.dart';
 import 'package:apple_shop/features/feat_category/data/models/category_model.dart';
+import 'package:apple_shop/features/feat_category/presentation/bloc/category_detail/category_detail_bloc.dart';
+import 'package:apple_shop/features/feat_category/presentation/screens/category_detail_screen.dart';
+import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCategories extends StatelessWidget {
   const HomeCategories({super.key, required this.categories});
@@ -43,11 +48,20 @@ class HomeCategories extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(left: Dimens.eightTeen),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Column(
-                        children: [
-                          Stack(
+                    child: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            context.push(
+                              BlocProvider(
+                                create: (context) =>
+                                    locator.get<CategoryDetalBloc>(),
+                                child: CategoryDetailScreen(
+                                    category: categories[index]),
+                              ),
+                            );
+                          },
+                          child: Stack(
                             alignment: Alignment.center,
                             children: [
                               Container(
@@ -81,13 +95,13 @@ class HomeCategories extends StatelessWidget {
                               )
                             ],
                           ),
-                          const SizedBox(height: Dimens.ten),
-                          Text(
-                            categories[index].title ?? 'دسته بندی',
-                            style: textTheme.labelSmall,
-                          ),
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: Dimens.ten),
+                        Text(
+                          categories[index].title ?? 'دسته بندی',
+                          style: textTheme.labelSmall,
+                        ),
+                      ],
                     ),
                   );
                 },
