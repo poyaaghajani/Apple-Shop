@@ -6,26 +6,27 @@ import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
 import 'package:apple_shop/core/widgets/loading_widget.dart';
 import 'package:apple_shop/core/widgets/product_item.dart';
-import 'package:apple_shop/features/feat_category/data/models/category_model.dart';
-import 'package:apple_shop/features/feat_category/presentation/bloc/category_detail/category_detail_bloc.dart';
+import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
+import 'package:apple_shop/features/feat-product/presentation/bloc/product_popularity/product_popularity_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CategoryDetailScreen extends StatefulWidget {
-  const CategoryDetailScreen({super.key, required this.category});
+class ProductPopularityScreen extends StatefulWidget {
+  const ProductPopularityScreen({super.key, required this.product});
 
-  final CategoryModel category;
+  final ProductModel product;
 
   @override
-  State<CategoryDetailScreen> createState() => _CategoryDetailScreenState();
+  State<ProductPopularityScreen> createState() =>
+      _ProductPopularityScreenState();
 }
 
-class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
+class _ProductPopularityScreenState extends State<ProductPopularityScreen> {
   @override
   void initState() {
-    BlocProvider.of<CategoryDetalBloc>(context)
-        .add(CategoryDetailRequest(widget.category.id!));
+    BlocProvider.of<ProductPopularityBloc>(context)
+        .add(ProductPopularityRequest(widget.product.popularity));
     super.initState();
   }
 
@@ -36,14 +37,13 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
     return Scaffold(
       backgroundColor: CustomColors.bgColor,
       body: SafeArea(
-        child: ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: BlocBuilder<CategoryDetalBloc, CategoryDetalState>(
-            builder: (context, state) {
-              return CustomScrollView(
+        child: BlocBuilder<ProductPopularityBloc, ProductPopularityState>(
+          builder: (context, state) {
+            return ScrollConfiguration(
+              behavior: MyBehavior(),
+              child: CustomScrollView(
                 slivers: [
-                  // loading
-                  if (state is CategoryDetalLoading) ...[
+                  if (state is ProductPopularityLoading) ...[
                     SliverToBoxAdapter(
                       child: SizedBox(
                         width: DevSize.getWidth(context),
@@ -54,12 +54,13 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                       ),
                     ),
                   ],
-
-                  // category grid
-                  if (state is CategoryDetalCompleted) ...[
+                  if (state is ProductPopularityCompleted) ...[
+                    // app header
                     SliverToBoxAdapter(
                       child: AppHeader(
-                        title: widget.category.title ?? 'دسته بندی',
+                        title: (widget.product.popularity == 'Hotest')
+                            ? 'پربازدید ترین ها'
+                            : 'پرفروش ترین ها',
                         widget: InkWell(
                           onTap: () {
                             Navigator.pop(context);
@@ -68,7 +69,9 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                         ),
                       ),
                     ),
-                    state.oneCategory.fold((errorMessage) {
+
+                    // product grid
+                    state.productPopularity.fold((errorMessage) {
                       return SliverToBoxAdapter(
                         child: SizedBox(
                           height: DevSize.getHeight(context) / 4.5,
@@ -78,7 +81,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                           ),
                         ),
                       );
-                    }, (category) {
+                    }, (products) {
                       return SliverPadding(
                         padding: const EdgeInsets.only(
                           left: Dimens.twenty,
@@ -87,7 +90,7 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                           bottom: Dimens.twenty,
                         ),
                         sliver: SliverGrid.builder(
-                          itemCount: category.length,
+                          itemCount: products.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
@@ -96,16 +99,16 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                             mainAxisSpacing: Dimens.twenty,
                           ),
                           itemBuilder: (context, index) {
-                            return ProductItem(product: category[index]);
+                            return ProductItem(product: products[index]);
                           },
                         ),
                       );
-                    }),
+                    })
                   ],
                 ],
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

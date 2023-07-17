@@ -51,6 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context, state) {
           return CustomScrollView(
             slivers: [
+              //loading
               if (state is HomeLoading) ...[
                 SliverToBoxAdapter(
                   child: SizedBox(

@@ -1,5 +1,7 @@
 import 'package:apple_shop/features/feat-product/data/datasource/product_datasource.dart';
 import 'package:apple_shop/features/feat-product/data/repository/product_repository.dart';
+import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
+import 'package:apple_shop/features/feat-product/presentation/bloc/product_popularity/product_popularity_bloc.dart';
 import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.dart';
 import 'package:apple_shop/features/feat_auth/data/repository/auth_repository.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
@@ -60,13 +62,19 @@ Future<void> getInit() async {
   locator.registerFactory<SingupBloc>(
     () => SingupBloc(locator()),
   );
-  locator.registerSingleton<HomeBloc>(
-    HomeBloc(locator(), locator(), locator()),
+  locator.registerFactory<HomeBloc>(
+    () => HomeBloc(locator(), locator(), locator()),
   );
-  locator.registerSingleton<CategoryBloc>(
-    CategoryBloc(locator()),
+  locator.registerFactory<CategoryBloc>(
+    () => CategoryBloc(locator()),
   );
   locator.registerFactory<CategoryDetalBloc>(
     () => CategoryDetalBloc(locator()),
+  );
+  locator.registerFactory<ProductDetailBloc>(
+    () => ProductDetailBloc(locator()),
+  );
+  locator.registerFactory<ProductPopularityBloc>(
+    () => ProductPopularityBloc(locator()),
   );
 }

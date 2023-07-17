@@ -47,6 +47,7 @@ dependencies:
   dotted_line: ^3.1.0
   loading_animation_widget: ^1.2.0+4
   another_flushbar: ^1.12.30
+  intl: ^0.18.0
 
 
 
