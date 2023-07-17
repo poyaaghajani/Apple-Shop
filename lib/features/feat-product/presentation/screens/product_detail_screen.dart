@@ -33,8 +33,10 @@ class ProductDetailScreen extends StatefulWidget {
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   void initState() {
-    BlocProvider.of<ProductDetailBloc>(context)
-        .add(ProductDetailRequest(widget.product.id));
+    BlocProvider.of<ProductDetailBloc>(context).add(ProductDetailRequest(
+      widget.product.id,
+      widget.product.categoryId,
+    ));
     super.initState();
   }
 
@@ -63,21 +65,36 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       ),
                     ),
                   ],
-                  if (state is PrductDetailCompleted) ...[
-                    // app header
-                    SliverToBoxAdapter(
-                      child: AppHeader(
-                        title: 'جزییات محصول',
-                        widget: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: SvgPicture.asset(AssetsManager.arrowRightDark),
-                        ),
-                      ),
-                    ),
 
-                    // product title
+                  // app header
+                  if (state is PrductDetailCompleted) ...[
+                    state.productCategory.fold((l) {
+                      return SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: Dimens.fortyFour,
+                          child: Center(
+                            child: Text(l, style: textTheme.bodySmall),
+                          ),
+                        ),
+                      );
+                    }, (category) {
+                      return SliverToBoxAdapter(
+                        child: AppHeader(
+                          title: category.title ?? 'جزئیات محصول',
+                          widget: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child:
+                                SvgPicture.asset(AssetsManager.arrowRightDark),
+                          ),
+                        ),
+                      );
+                    })
+                  ],
+
+                  // product title
+                  if (state is PrductDetailCompleted) ...[
                     SliverToBoxAdapter(
                       child: Center(
                         child: Padding(

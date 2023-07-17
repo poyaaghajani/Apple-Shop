@@ -72,7 +72,7 @@ Future<void> getInit() async {
     () => CategoryDetalBloc(locator()),
   );
   locator.registerFactory<ProductDetailBloc>(
-    () => ProductDetailBloc(locator()),
+    () => ProductDetailBloc(locator(), locator()),
   );
   locator.registerFactory<ProductPopularityBloc>(
     () => ProductPopularityBloc(locator()),

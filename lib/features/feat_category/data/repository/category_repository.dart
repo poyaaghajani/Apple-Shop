@@ -7,6 +7,7 @@ import 'package:dartz/dartz.dart';
 abstract class ICategoryRepository {
   Future<Either<String, List<CategoryModel>>> getCategories();
   Future<Either<String, List<ProductModel>>> getOneCategory(String catId);
+  Future<Either<String, CategoryModel>> getProductCategory(String catId);
 }
 
 class CategoryRepository extends ICategoryRepository {
@@ -29,6 +30,16 @@ class CategoryRepository extends ICategoryRepository {
     try {
       var categories = await datasource.getOneCategory(catId);
       return right(categories);
+    } on ApiExeption catch (ex) {
+      return left(ex.message ?? 'مشکلی در سرور پیش آمده');
+    }
+  }
+
+  @override
+  Future<Either<String, CategoryModel>> getProductCategory(String catId) async {
+    try {
+      var productCategory = await datasource.getProductCategory(catId);
+      return right(productCategory);
     } on ApiExeption catch (ex) {
       return left(ex.message ?? 'مشکلی در سرور پیش آمده');
     }

@@ -7,8 +7,10 @@ abstract class ProductDetailEvent extends Equatable {
 // product detail request
 class ProductDetailRequest extends ProductDetailEvent {
   final String productId;
-  const ProductDetailRequest(this.productId);
+  final String catId;
+
+  const ProductDetailRequest(this.productId, this.catId);
 
   @override
-  List<Object> get props => [productId];
+  List<Object> get props => [productId, catId];
 }
