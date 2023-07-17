@@ -6,6 +6,7 @@ import 'package:apple_shop/core/utils/auth_manager.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/screens/login_screen.dart';
+import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:apple_shop/features/feat_profile/presentation/widgets/profile_item.dart';
 import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
@@ -44,9 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ProfileItem(
                 widget: Image.asset(AssetsManager.setting, height: 28),
                 text: 'تنظیمات',
-                onTap: () {
-                  logOutDialog(context, textTheme);
-                },
+                onTap: () {},
               ),
               ProfileItem(
                 widget: SvgPicture.asset(AssetsManager.order),
@@ -93,6 +92,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 text: 'پشتیبانی',
                 onTap: () {},
               ),
+              ProfileItem(
+                widget: SvgPicture.asset(
+                  AssetsManager.leave,
+                  height: 30,
+                ),
+                color: CustomColors.white,
+                text: 'خروج از حساب',
+                onTap: () {
+                  logOutDialog(context, textTheme, setState);
+                },
+              ),
             ],
           ),
         ),
@@ -120,7 +130,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   // logOut dialog
-  Future<dynamic> logOutDialog(BuildContext context, TextTheme textTheme) {
+  Future<dynamic> logOutDialog(
+      BuildContext context, TextTheme textTheme, Function setState) {
     return showDialog(
       context: context,
       builder: (context) {
@@ -142,6 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: CustomColors.green),
                   onPressed: () {
+                    setState(() {
+                      selectedBottomNavigation = 0;
+                    });
                     AuthManager.logOut();
                     context.pushAndRemoveUntil(
                       BlocProvider(

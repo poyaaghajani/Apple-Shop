@@ -13,14 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// current selectet screen
+int selectedBottomNavigation = 0;
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
-
-int selectedBottomNavigation = 0;
 
 class _MainScreenState extends State<MainScreen> {
   @override

@@ -8,11 +8,13 @@ class ProfileItem extends StatelessWidget {
     required this.widget,
     required this.text,
     required this.onTap,
+    this.color = CustomColors.blue,
   });
 
   final Widget widget;
   final String text;
   final Function()? onTap;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class ProfileItem extends StatelessWidget {
             height: DevSize.getHeight(context) / 14,
             width: DevSize.getWidth(context) / 6.8,
             decoration: ShapeDecoration(
-              color: CustomColors.blue,
+              color: color,
               shape: ContinuousRectangleBorder(
                 borderRadius: BorderRadius.circular(45),
               ),

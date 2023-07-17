@@ -35,4 +35,5 @@ class AssetsManager {
   static const String profileActive = '$imagePath/profile-active.svg';
   static const String bin = '$imagePath/bin.svg';
   static const String star = '$imagePath/star.svg';
+  static const String leave = '$imagePath/leave.svg';
 }
