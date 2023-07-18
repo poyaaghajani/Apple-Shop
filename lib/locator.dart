@@ -6,6 +6,11 @@ import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.da
 import 'package:apple_shop/features/feat_auth/data/repository/auth_repository.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
+import 'package:apple_shop/features/feat_basket/data/datasource/basket_datasource.dart';
+import 'package:apple_shop/features/feat_basket/data/repository/basket_repository.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/add_basket/add_basket_bloc.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/get_basket/get_basket_bloc.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/remove_basket/remove_basket_bloc.dart';
 import 'package:apple_shop/features/feat_category/data/datasource/category_datasource.dart';
 import 'package:apple_shop/features/feat_category/data/repository/category_repository.dart';
 import 'package:apple_shop/features/feat_category/presentation/bloc/category/category_bloc.dart';
@@ -40,6 +45,9 @@ Future<void> getInit() async {
   locator.registerSingleton<IProductDatasource>(
     ProductRemoteDatasource(locator()),
   );
+  locator.registerSingleton<IBasketDatasource>(
+    BasketLocalDatasource(),
+  );
 
   // repositories
   locator.registerSingleton<IAuthRepository>(
@@ -53,6 +61,9 @@ Future<void> getInit() async {
   );
   locator.registerSingleton<IProductRepository>(
     ProductRepository(locator()),
+  );
+  locator.registerSingleton<IBasketRepository>(
+    BasketRepository(locator()),
   );
 
   // blocs
@@ -76,5 +87,14 @@ Future<void> getInit() async {
   );
   locator.registerFactory<ProductPopularityBloc>(
     () => ProductPopularityBloc(locator()),
+  );
+  locator.registerFactory<AddBasketBloc>(
+    () => AddBasketBloc(locator()),
+  );
+  locator.registerSingleton<GetBasketBloc>(
+    (GetBasketBloc(locator())),
+  );
+  locator.registerSingleton<RemoveBasketBloc>(
+    (RemoveBasketBloc(locator())),
   );
 }

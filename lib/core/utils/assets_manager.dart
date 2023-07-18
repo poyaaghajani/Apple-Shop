@@ -6,6 +6,7 @@ class AssetsManager {
 
   // png
   static const String setting = '$imagePath/setting.png';
+  static const String emptyBasket = '$imagePath/empty-basket.png';
 
   // svg
   static const String appleWhite = '$imagePath/apple-white.svg';

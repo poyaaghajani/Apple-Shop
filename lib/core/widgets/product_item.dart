@@ -8,6 +8,8 @@ import 'package:apple_shop/core/widgets/cached_image.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
 import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:apple_shop/features/feat-product/presentation/screens/product_detail_screen.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/add_basket/add_basket_bloc.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/get_basket/get_basket_bloc.dart';
 import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,10 +26,17 @@ class ProductItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        context.push(BlocProvider(
-          create: (context) => locator.get<ProductDetailBloc>(),
-          child: ProductDetailScreen(product: product),
-        ));
+        context.push(
+          MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => locator.get<ProductDetailBloc>()),
+              BlocProvider(create: (_) => locator.get<AddBasketBloc>()),
+              BlocProvider<GetBasketBloc>.value(
+                  value: locator.get<GetBasketBloc>()),
+            ],
+            child: ProductDetailScreen(product: product),
+          ),
+        );
       },
       child: Container(
         width: DevSize.getWidth(context) / 2.45,

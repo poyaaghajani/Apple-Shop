@@ -1,15 +1,16 @@
-import 'dart:ui';
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
+import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/core/widgets/loading_widget.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_variant.dart';
 import 'package:apple_shop/features/feat-product/data/models/variant_type.dart';
 import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
+import 'package:apple_shop/features/feat-product/presentation/widgets/add_to_basket_button.dart';
 import 'package:apple_shop/features/feat-product/presentation/widgets/color_variant.dart';
 import 'package:apple_shop/features/feat-product/presentation/widgets/price_button.dart';
 import 'package:apple_shop/features/feat-product/presentation/widgets/storage_variant.dart';
@@ -17,6 +18,7 @@ import 'package:apple_shop/features/feat-product/presentation/widgets/product_co
 import 'package:apple_shop/features/feat-product/presentation/widgets/product_description.dart';
 import 'package:apple_shop/features/feat-product/presentation/widgets/product_gallery_box.dart';
 import 'package:apple_shop/features/feat-product/presentation/widgets/product_property.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/add_basket/add_basket_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -93,8 +95,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     })
                   ],
 
-                  // product title
                   if (state is PrductDetailCompleted) ...[
+                    // product title
                     SliverToBoxAdapter(
                       child: Center(
                         child: Padding(
@@ -102,6 +104,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           child: Text(
                             widget.product.name,
                             style: textTheme.bodySmall,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // product quantity
+                    SliverToBoxAdapter(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: Dimens.eight),
+                          child: Text(
+                            widget.product.quantity > 0
+                                ? '${widget.product.quantity.toString()} عدد موجود در انبار'
+                                : 'ناموجود',
+                            style: textTheme.labelSmall!
+                                .apply(color: CustomColors.green)
+                                .copyWith(fontSize: 11),
                           ),
                         ),
                       ),
@@ -177,7 +196,39 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             // add to basket button
-                            AddToBasketButton(product: widget.product),
+                            BlocConsumer<AddBasketBloc, AddBasketState>(
+                              listener: (context, state) {
+                                if (state is AddBasketCompleted) {
+                                  state.basket.fold((errorMessage) {
+                                    CustomSnackbar.showSnack(
+                                        context, errorMessage);
+                                  }, (successMessage) {
+                                    CustomSnackbar.showSnack(
+                                        context, successMessage);
+                                  });
+                                }
+                              },
+                              builder: (context, state) {
+                                if (state is AddBasketInit) {
+                                  return AddToBasketButton(
+                                    product: widget.product,
+                                  );
+                                }
+                                if (state is AddBasketCompleted) {
+                                  return state.basket.fold((error) {
+                                    return AddToBasketButton(
+                                      product: widget.product,
+                                    );
+                                  }, (success) {
+                                    return AddToBasketButton(
+                                      product: widget.product,
+                                    );
+                                  });
+                                } else {
+                                  return const SizedBox();
+                                }
+                              },
+                            ),
 
                             // price button
                             PriceButton(product: widget.product),
@@ -225,60 +276,6 @@ class VariantContainerGenerator extends StatelessWidget {
           }
         ],
       ),
-    );
-  }
-}
-
-// add to basket button
-class AddToBasketButton extends StatelessWidget {
-  const AddToBasketButton({super.key, required this.product});
-
-  final ProductModel product;
-
-  @override
-  Widget build(BuildContext context) {
-    var textTheme = Theme.of(context).textTheme;
-
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      clipBehavior: Clip.none,
-      children: [
-        Container(
-          width: DevSize.getWidth(context) / 2.8,
-          height: DevSize.getHeight(context) / 17,
-          decoration: BoxDecoration(
-            color: CustomColors.blue,
-            borderRadius: BorderRadius.circular(15),
-          ),
-        ),
-        Positioned(
-          top: 5,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-              child: GestureDetector(
-                onTap: () async {},
-                child: Container(
-                  height: DevSize.getHeight(context) / 15,
-                  width: DevSize.getWidth(context) / 2.45,
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'افزودن سبد خرید',
-                      style: textTheme.bodySmall!.apply(
-                        color: CustomColors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:apple_shop/core/constants/app_defaults.dart';
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/get_basket/get_basket_bloc.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/remove_basket/remove_basket_bloc.dart';
 import 'package:apple_shop/features/feat_basket/presentation/screens/basket_screen.dart';
 import 'package:apple_shop/features/feat_category/presentation/bloc/category/category_bloc.dart';
 import 'package:apple_shop/features/feat_category/presentation/screens/category_screen.dart';
@@ -115,7 +117,16 @@ List<Widget> getScreens() {
       create: (context) => locator.get<CategoryBloc>(),
       child: const CategoryScreen(),
     ),
-    const BasketScreen(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<GetBasketBloc>(
+          create: (_) =>
+              locator.get<GetBasketBloc>()..add(GetAllBasketProducts()),
+        ),
+        BlocProvider(create: (_) => locator.get<RemoveBasketBloc>())
+      ],
+      child: const BasketScreen(),
+    ),
     const ProfileScreen(),
   ];
 }
