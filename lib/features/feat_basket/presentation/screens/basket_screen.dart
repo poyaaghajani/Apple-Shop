@@ -7,6 +7,7 @@ import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
+import 'package:apple_shop/features/feat-payment/presentation/bloc/payment_bloc.dart';
 import 'package:apple_shop/features/feat_basket/presentation/bloc/get_basket/get_basket_bloc.dart';
 import 'package:apple_shop/features/feat_basket/presentation/widgets/basket_item.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,8 @@ class BasketScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late int finalPrice;
+
     var textTheme = Theme.of(context).textTheme;
 
     return BlocBuilder<GetBasketBloc, GetBasketState>(
@@ -111,10 +114,14 @@ class BasketScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.read<PaymentBloc>().add(PaymentSetup(finalPrice));
+                  context.read<PaymentBloc>().add(PaymentStartRequest(context));
+                },
                 child: BlocBuilder<GetBasketBloc, GetBasketState>(
                   builder: (context, state) {
                     if (state is GetBasketCompleted) {
+                      finalPrice = state.basketFinalPrice;
                       return Text(
                         state.basketFinalPrice == 0
                             ? 'سبد خرید خالی است'
