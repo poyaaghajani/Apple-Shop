@@ -1,4 +1,5 @@
 import 'package:apple_shop/features/feat-payment/presentation/bloc/payment_bloc.dart';
+import 'package:apple_shop/features/feat-payment/presentation/utils/payment_handler.dart';
 import 'package:apple_shop/features/feat-product/data/datasource/product_datasource.dart';
 import 'package:apple_shop/features/feat-product/data/repository/product_repository.dart';
 import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
@@ -32,6 +33,7 @@ Future<void> getInit() async {
   ));
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());
+  locator.registerSingleton<PaymentHandler>(ZarinpalPayment());
 
   // datasource
   locator.registerSingleton<IAuthDatasource>(
@@ -99,6 +101,6 @@ Future<void> getInit() async {
     (RemoveBasketBloc(locator())),
   );
   locator.registerSingleton<PaymentBloc>(
-    (PaymentBloc()),
+    (PaymentBloc(locator())),
   );
 }

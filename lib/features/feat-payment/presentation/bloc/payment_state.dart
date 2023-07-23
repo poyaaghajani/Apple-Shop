@@ -9,4 +9,4 @@ abstract class PaymentState extends Equatable {
 
 class PaymentInit extends PaymentState {}
 
-class PaymentStart extends PaymentState {}
+class PaymentCompleted extends PaymentState {}
