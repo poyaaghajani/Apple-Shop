@@ -6,6 +6,7 @@ import 'package:dio/dio.dart';
 abstract class ICategoryDatasource {
   Future<List<CategoryModel>> getCategories();
   Future<List<ProductModel>> getOneCategory(String catId);
+  Future<CategoryModel> getProductCategory(String catId);
 }
 
 class CategoryRemoteDatasource extends ICategoryDatasource {
@@ -38,6 +39,22 @@ class CategoryRemoteDatasource extends ICategoryDatasource {
       return response.data['items']
           .map<ProductModel>((jsonObject) => ProductModel.fromJson(jsonObject))
           .toList();
+    } on DioError catch (_) {
+      throw ApiExeption('لیست دسته بندی از دسترس خارج شده');
+    } catch (_) {
+      throw ApiExeption('مشکلی در سرور پیش آمده');
+    }
+  }
+
+  @override
+  Future<CategoryModel> getProductCategory(String catId) async {
+    try {
+      Map<String, dynamic> query = {'filter': 'id="$catId"'};
+      var response = await dio.get(
+        'collections/category/records',
+        queryParameters: query,
+      );
+      return CategoryModel.fromJson(response.data['items'][0]);
     } on DioError catch (_) {
       throw ApiExeption('لیست دسته بندی از دسترس خارج شده');
     } catch (_) {

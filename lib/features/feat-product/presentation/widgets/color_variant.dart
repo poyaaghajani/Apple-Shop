@@ -1,54 +1,74 @@
-import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
+import 'package:apple_shop/core/extensions/color_parser.dart';
+import 'package:apple_shop/features/feat-product/data/models/product_variant.dart';
+import 'package:apple_shop/features/feat-product/data/models/variant.dart';
 import 'package:flutter/material.dart';
 
-class StorageVariant extends StatelessWidget {
-  const StorageVariant({super.key});
+class ColorVariant extends StatelessWidget {
+  const ColorVariant({super.key, required this.productVariants});
+
+  final List<ProductVariant> productVariants;
 
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
-    return SliverPadding(
+    return Padding(
       padding: const EdgeInsets.only(
-        top: Dimens.twenty,
         right: Dimens.twenty,
+        bottom: Dimens.twenty,
       ),
-      sliver: SliverToBoxAdapter(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'انتخاب حافظه',
-              style: textTheme.bodySmall,
-            ),
-            const SizedBox(height: Dimens.ten),
-            SizedBox(
-              height: 26,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 10),
-                      width: 74,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: CustomColors.grey, width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text('245', style: textTheme.bodySmall),
-                      ),
-                    ),
-                  );
-                },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            productVariants[0].variantType.title,
+            style: textTheme.bodySmall!.copyWith(fontSize: 13),
+          ),
+          const SizedBox(height: Dimens.ten),
+          ColorVariantGenerator(variantList: productVariants[0].variant),
+        ],
+      ),
+    );
+  }
+}
+
+class ColorVariantGenerator extends StatefulWidget {
+  const ColorVariantGenerator({super.key, required this.variantList});
+
+  final List<Variant> variantList;
+
+  @override
+  State<ColorVariantGenerator> createState() => _ColorVariantGeneratorState();
+}
+
+class _ColorVariantGeneratorState extends State<ColorVariantGenerator> {
+  int selectedIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 24,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: widget.variantList.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
+            child: Container(
+              width: selectedIndex == index ? 54 : 26,
+              margin: const EdgeInsets.only(left: 10),
+              decoration: BoxDecoration(
+                color: widget.variantList[index].value.parsToColor(),
+                borderRadius: BorderRadius.circular(8),
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

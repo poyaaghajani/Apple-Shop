@@ -10,7 +10,7 @@ import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/screens/singup_screen.dart';
 import 'package:apple_shop/features/feat_auth/presentation/widgets/auth_box.dart';
-import 'package:apple_shop/features/feat_profile/presentation/screens/profile_screen.dart';
+import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,8 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           (success) {
                             AuthManager.saveUsername(_usernameController.text);
                             AuthManager.readUsername();
-                            context
-                                .pushAndRemoveUntilRTL(const ProfileScreen());
+                            context.pushAndRemoveUntilRTL(const MainScreen());
                           },
                         );
                       }

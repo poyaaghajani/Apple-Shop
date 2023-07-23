@@ -1,5 +1,6 @@
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
+import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/utils/my_scroll_behavor.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
@@ -9,6 +10,7 @@ import 'package:apple_shop/features/feat_category/data/models/category_model.dar
 import 'package:apple_shop/features/feat_category/presentation/bloc/category_detail/category_detail_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoryDetailScreen extends StatefulWidget {
   const CategoryDetailScreen({super.key, required this.category});
@@ -57,7 +59,14 @@ class _CategoryDetailScreenState extends State<CategoryDetailScreen> {
                   if (state is CategoryDetalCompleted) ...[
                     SliverToBoxAdapter(
                       child: AppHeader(
-                          title: widget.category.title ?? 'دسته بندی'),
+                        title: widget.category.title ?? 'دسته بندی',
+                        widget: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: SvgPicture.asset(AssetsManager.arrowRightDark),
+                        ),
+                      ),
                     ),
                     state.oneCategory.fold((errorMessage) {
                       return SliverToBoxAdapter(

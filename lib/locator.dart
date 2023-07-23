@@ -1,9 +1,18 @@
+import 'package:apple_shop/features/feat-payment/presentation/bloc/payment_bloc.dart';
+import 'package:apple_shop/features/feat-payment/presentation/utils/payment_handler.dart';
 import 'package:apple_shop/features/feat-product/data/datasource/product_datasource.dart';
 import 'package:apple_shop/features/feat-product/data/repository/product_repository.dart';
+import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
+import 'package:apple_shop/features/feat-product/presentation/bloc/product_popularity/product_popularity_bloc.dart';
 import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.dart';
 import 'package:apple_shop/features/feat_auth/data/repository/auth_repository.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
+import 'package:apple_shop/features/feat_basket/data/datasource/basket_datasource.dart';
+import 'package:apple_shop/features/feat_basket/data/repository/basket_repository.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/add_basket/add_basket_bloc.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/get_basket/get_basket_bloc.dart';
+import 'package:apple_shop/features/feat_basket/presentation/bloc/remove_basket/remove_basket_bloc.dart';
 import 'package:apple_shop/features/feat_category/data/datasource/category_datasource.dart';
 import 'package:apple_shop/features/feat_category/data/repository/category_repository.dart';
 import 'package:apple_shop/features/feat_category/presentation/bloc/category/category_bloc.dart';
@@ -24,6 +33,7 @@ Future<void> getInit() async {
   ));
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());
+  locator.registerSingleton<PaymentHandler>(ZarinpalPayment());
 
   // datasource
   locator.registerSingleton<IAuthDatasource>(
@@ -37,6 +47,9 @@ Future<void> getInit() async {
   );
   locator.registerSingleton<IProductDatasource>(
     ProductRemoteDatasource(locator()),
+  );
+  locator.registerSingleton<IBasketDatasource>(
+    BasketLocalDatasource(),
   );
 
   // repositories
@@ -52,6 +65,9 @@ Future<void> getInit() async {
   locator.registerSingleton<IProductRepository>(
     ProductRepository(locator()),
   );
+  locator.registerSingleton<IBasketRepository>(
+    BasketRepository(locator()),
+  );
 
   // blocs
   locator.registerFactory<LoginBloc>(
@@ -60,13 +76,31 @@ Future<void> getInit() async {
   locator.registerFactory<SingupBloc>(
     () => SingupBloc(locator()),
   );
-  locator.registerSingleton<HomeBloc>(
-    HomeBloc(locator(), locator(), locator()),
+  locator.registerFactory<HomeBloc>(
+    () => HomeBloc(locator(), locator(), locator()),
   );
-  locator.registerSingleton<CategoryBloc>(
-    CategoryBloc(locator()),
+  locator.registerFactory<CategoryBloc>(
+    () => CategoryBloc(locator()),
   );
   locator.registerFactory<CategoryDetalBloc>(
     () => CategoryDetalBloc(locator()),
+  );
+  locator.registerFactory<ProductDetailBloc>(
+    () => ProductDetailBloc(locator(), locator()),
+  );
+  locator.registerFactory<ProductPopularityBloc>(
+    () => ProductPopularityBloc(locator()),
+  );
+  locator.registerFactory<AddBasketBloc>(
+    () => AddBasketBloc(locator()),
+  );
+  locator.registerSingleton<GetBasketBloc>(
+    (GetBasketBloc(locator())),
+  );
+  locator.registerSingleton<RemoveBasketBloc>(
+    (RemoveBasketBloc(locator())),
+  );
+  locator.registerSingleton<PaymentBloc>(
+    (PaymentBloc(locator())),
   );
 }

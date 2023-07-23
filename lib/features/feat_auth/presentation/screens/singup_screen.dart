@@ -8,7 +8,7 @@ import 'package:apple_shop/core/widgets/button_loading.dart';
 import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/widgets/auth_box.dart';
-import 'package:apple_shop/features/feat_profile/presentation/screens/profile_screen.dart';
+import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -102,8 +102,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                           },
                           (success) {
                             AuthManager.readUsername();
-                            context
-                                .pushAndRemoveUntilRTL(const ProfileScreen());
+                            context.pushAndRemoveUntilRTL(const MainScreen());
                           },
                         );
                       }

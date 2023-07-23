@@ -68,7 +68,10 @@ class ProductComments extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                Text('مشاهده', style: textTheme.labelSmall),
+                Text('مشاهده',
+                    style: textTheme.labelSmall!.apply(
+                      color: CustomColors.blue,
+                    )),
                 const SizedBox(width: 10),
                 SvgPicture.asset(AssetsManager.arrowLeftBlue),
               ],
