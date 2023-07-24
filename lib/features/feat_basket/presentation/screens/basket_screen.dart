@@ -19,7 +19,6 @@ class BasketScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     late int finalPrice;
-
     var textTheme = Theme.of(context).textTheme;
 
     return BlocBuilder<GetBasketBloc, GetBasketState>(

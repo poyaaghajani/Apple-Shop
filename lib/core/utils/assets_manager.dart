@@ -7,6 +7,7 @@ class AssetsManager {
   // png
   static const String setting = '$imagePath/setting.png';
   static const String emptyBasket = '$imagePath/empty-basket.png';
+  static const String emptyFavorite = '$imagePath/empty-favorite.png';
 
   // svg
   static const String appleWhite = '$imagePath/apple-white.svg';
@@ -37,4 +38,5 @@ class AssetsManager {
   static const String bin = '$imagePath/bin.svg';
   static const String star = '$imagePath/star.svg';
   static const String leave = '$imagePath/leave.svg';
+  static const String deleteBig = '$imagePath/delete-big.svg';
 }
