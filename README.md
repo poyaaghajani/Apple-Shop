@@ -91,7 +91,17 @@ Technologies used in the project:
 
 
 
+![Screenshot_20230724-131436](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/84217520-7f8f-42a0-bc76-bc24174b29b7)
 
 
 
+![Screenshot_20230724-131458](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/712a8d1c-b966-40e6-8b71-885793ddca49)
+
+
+
+![Screenshot_20230724-131541](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/872aea6a-a76b-4762-9bfe-bd82d322ac5d)
+
+
+
+![Screenshot_20230724-131550](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/ad10423a-ada6-4a25-a07f-eb1eaf7bfb56)
 
