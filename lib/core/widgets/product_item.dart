@@ -5,24 +5,34 @@ import 'package:apple_shop/core/extensions/price_formatter.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/cached_image.dart';
+import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
 import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:apple_shop/features/feat-product/presentation/screens/product_detail_screen.dart';
 import 'package:apple_shop/features/feat_basket/presentation/bloc/add_basket/add_basket_bloc.dart';
 import 'package:apple_shop/features/feat_basket/presentation/bloc/get_basket/get_basket_bloc.dart';
+import 'package:apple_shop/features/feat_favorite/data/datasource/favorite_datasource.dart';
+import 'package:apple_shop/features/feat_favorite/presentation/bloc/favorite_bloc.dart';
 import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   const ProductItem({super.key, required this.product});
 
   final ProductModel product;
 
   @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
+
+    IFavoriteDatasource favorite = locator.get();
 
     return GestureDetector(
       onTap: () {
@@ -34,7 +44,7 @@ class ProductItem extends StatelessWidget {
               BlocProvider<GetBasketBloc>.value(
                   value: locator.get<GetBasketBloc>()),
             ],
-            child: ProductDetailScreen(product: product),
+            child: ProductDetailScreen(product: widget.product),
           ),
         );
       },
@@ -58,15 +68,37 @@ class ProductItem extends StatelessWidget {
                   width: DevSize.getHeight(context) / 8.1,
                   height: DevSize.getWidth(context) / 4,
                   child: CachedImage(
-                    imageUrl: product.thumbnail,
+                    imageUrl: widget.product.thumbnail,
                     radius: 8,
                   ),
                 ),
                 Positioned(
                   right: 6,
                   top: 0,
-                  child: SvgPicture.asset(
-                    AssetsManager.favUnactive,
+                  child: InkWell(
+                    onTap: () {
+                      if (!favorite.isFavorite(widget.product)) {
+                        favorite.addToFavorite(widget.product);
+                        context
+                            .read<FavoriteBloc>()
+                            .add(GetAllFavoriteProducts());
+                        CustomSnackbar.showSnack(
+                            context, 'محصول به لیست اضافه شد');
+                      } else {
+                        favorite.removeFromFavorite(widget.product);
+                        context
+                            .read<FavoriteBloc>()
+                            .add(GetAllFavoriteProducts());
+                        CustomSnackbar.showSnack(
+                            context, 'محصول از لیست حذف شد');
+                      }
+                      setState(() {});
+                    },
+                    child: SvgPicture.asset(
+                      favorite.isFavorite(widget.product)
+                          ? AssetsManager.favActive
+                          : AssetsManager.favUnactive,
+                    ),
                   ),
                 ),
                 Positioned(
@@ -81,7 +113,7 @@ class ProductItem extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           vertical: 2, horizontal: 6),
                       child: Text(
-                        '% ${product.persent!.round().toString()}',
+                        '% ${widget.product.persent!.round().toString()}',
                         style: textTheme.labelSmall!.apply(
                           color: CustomColors.white,
                         ),
@@ -101,7 +133,7 @@ class ProductItem extends StatelessWidget {
                     right: Dimens.ten,
                   ),
                   child: Text(
-                    product.name,
+                    widget.product.name,
                     textAlign: TextAlign.start,
                     maxLines: 1,
                     style: textTheme.titleSmall,
@@ -141,14 +173,14 @@ class ProductItem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              product.price.priceFormatter(),
+                              widget.product.price.priceFormatter(),
                               style: textTheme.titleSmall!.apply(
                                 color: CustomColors.white,
                                 decoration: TextDecoration.lineThrough,
                               ),
                             ),
                             Text(
-                              product.realPrice!.priceFormatter(),
+                              widget.product.realPrice!.priceFormatter(),
                               style: textTheme.titleSmall!.apply(
                                 color: CustomColors.white,
                               ),

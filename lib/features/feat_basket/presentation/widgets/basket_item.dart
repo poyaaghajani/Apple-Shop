@@ -105,14 +105,6 @@ class BasketItem extends StatelessWidget {
                         runSpacing: Dimens.eight,
                         children: [
                           ItemChip(
-                            text: 'ذخیره',
-                            widget: SvgPicture.asset(
-                              AssetsManager.favActive,
-                              height: 15,
-                            ),
-                            onTap: () {},
-                          ),
-                          ItemChip(
                             text: 'قرمز',
                             widget: Container(
                               width: 10,

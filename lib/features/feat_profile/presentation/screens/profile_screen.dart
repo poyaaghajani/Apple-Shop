@@ -6,6 +6,7 @@ import 'package:apple_shop/core/utils/auth_manager.dart';
 import 'package:apple_shop/core/widgets/app_header.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/screens/login_screen.dart';
+import 'package:apple_shop/features/feat_favorite/presentation/screens/favorite_screen.dart';
 import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:apple_shop/features/feat_profile/presentation/widgets/profile_item.dart';
 import 'package:apple_shop/locator.dart';
@@ -80,7 +81,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ProfileItem(
                 widget: SvgPicture.asset(AssetsManager.favorite),
                 text: 'علاقمندی ها',
-                onTap: () {},
+                onTap: () {
+                  context.push(const FavoriteScreen());
+                },
               ),
               ProfileItem(
                 widget: SvgPicture.asset(AssetsManager.blogs),

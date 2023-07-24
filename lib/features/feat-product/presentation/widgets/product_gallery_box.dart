@@ -4,9 +4,14 @@ import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/cached_image.dart';
+import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_gallery.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
+import 'package:apple_shop/features/feat_favorite/data/datasource/favorite_datasource.dart';
+import 'package:apple_shop/features/feat_favorite/presentation/bloc/favorite_bloc.dart';
+import 'package:apple_shop/locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductGalleryBox extends StatefulWidget {
@@ -30,6 +35,8 @@ class _ProductGalleryBoxState extends State<ProductGalleryBox> {
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
 
+    IFavoriteDatasource favorite = locator.get();
+
     return SliverToBoxAdapter(
       child: Padding(
         padding: const EdgeInsets.symmetric(
@@ -51,7 +58,31 @@ class _ProductGalleryBoxState extends State<ProductGalleryBox> {
                 right: Dimens.ten,
                 child: Row(
                   children: [
-                    SvgPicture.asset(AssetsManager.favActive),
+                    InkWell(
+                      onTap: () {
+                        if (!favorite.isFavorite(widget.product)) {
+                          favorite.addToFavorite(widget.product);
+                          context
+                              .read<FavoriteBloc>()
+                              .add(GetAllFavoriteProducts());
+                          CustomSnackbar.showSnack(
+                              context, 'محصول به لیست اضافه شد');
+                        } else {
+                          favorite.removeFromFavorite(widget.product);
+                          context
+                              .read<FavoriteBloc>()
+                              .add(GetAllFavoriteProducts());
+                          CustomSnackbar.showSnack(
+                              context, 'محصول از لیست حذف شد');
+                        }
+                        setState(() {});
+                      },
+                      child: SvgPicture.asset(
+                        favorite.isFavorite(widget.product)
+                            ? AssetsManager.favActive
+                            : AssetsManager.favUnactive,
+                      ),
+                    ),
                     const Spacer(),
                     Text('4.6', style: textTheme.bodySmall),
                     const SizedBox(width: 5),
