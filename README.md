@@ -12,7 +12,7 @@ Here're some of the project's best features:
 *   Add product to favorite list
 *   Add product to basket
 *   Watch each product detail
-*   Payment with zarinoal
+*   Payment with zarinpal
 
   
 <h2>💻 Built with</h2>
