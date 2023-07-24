@@ -1,16 +1,41 @@
-# apple_shop
+<h1 align="center" id="title">Apple Shop</h1>
 
-A new Flutter project.
+<p id="description">Hi every one, this is a store project for selling mobile phones, laptobs and accessories, and i desinged this project almost based on clean architecture, and make folders based on feature</p>
 
-## Getting Started
+ 
+<h2>🦉 Features</h2>
 
-This project is a starting point for a Flutter application.
+Here're some of the project's best features:
 
-A few resources to get you started if this is your first Flutter project:
+*   Login and account registration section
+*   Seperation of different categories
+*   Add product to favorite list
+*   Add product to basket
+*   Watch each product detail
+*   Payment with zarinoal
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  
+<h2>💻 Built with</h2>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Technologies used in the project:
+
+*   Bloc
+*   Dio
+*   Hive
+*   Equatable
+*   Dartz
+*   Get_it
+*   Shimmer
+*   Zarinpal
+*   Url_luncher
+*   Uni_links
+*   Shared_preferences
+*   intl
+*   Flutter_svg
+
+<h3>🦖 ScreenShots</h3> 
+
+![Uploading Screenshot_20230724-130820.jpg…]()
+
+
+
