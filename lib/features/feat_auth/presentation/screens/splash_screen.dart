@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1200));
     final CurvedAnimation curve = CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
@@ -49,6 +49,12 @@ class _SplashScreenState extends State<SplashScreen>
     _animationController.repeat(min: 0, max: 1, reverse: true);
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override

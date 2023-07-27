@@ -6,10 +6,11 @@ class CustomSnackbar {
   static showSnack(context, String message) {
     Flushbar(
       message: message,
+      positionOffset: 45,
       textDirection: TextDirection.rtl,
       messageColor: CustomColors.white,
       backgroundColor: CustomColors.dark,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 1200),
       margin: const EdgeInsets.symmetric(horizontal: 5),
       borderRadius: BorderRadius.circular(8),
       flushbarPosition: FlushbarPosition.TOP,

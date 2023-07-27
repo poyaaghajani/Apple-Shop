@@ -31,7 +31,7 @@ class AppTheme {
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(6),
             ),
           ),
           textStyle: MaterialStateProperty.resolveWith((states) {
