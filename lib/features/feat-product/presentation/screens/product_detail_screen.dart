@@ -182,7 +182,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ProductDescription(productModel: widget.product),
 
                     // product comments
-                    const ProductComments(),
+                    ProductComments(item: widget.product),
 
                     // add to basket and prie button
                     SliverPadding(
