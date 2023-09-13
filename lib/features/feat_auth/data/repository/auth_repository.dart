@@ -22,7 +22,7 @@ class AuthRepository extends IAuthRepository {
         AuthManager.saveUserId(user[0]);
         AuthManager.saveUsername(user[1]);
 
-        return right(['خوش آمدید']);
+        return right(['به اپل شاپ خوش آمدید']);
       }
     } on ApiExeption catch (ex) {
       return left(ex.message!);
@@ -39,7 +39,7 @@ class AuthRepository extends IAuthRepository {
         AuthManager.saveUserId(user[0]);
         AuthManager.saveToken(user[1]);
 
-        return right(['خوش آمدید']);
+        return right(['به اپل شاپ خوش آمدید']);
       }
     } on ApiExeption catch (ex) {
       return left(ex.message!);

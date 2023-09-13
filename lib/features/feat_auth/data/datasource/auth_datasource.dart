@@ -26,8 +26,12 @@ class AuthDatasource extends IAuthDatasource {
         String username = response.data['username'];
         return [userId, username];
       }
-    } on DioError catch (_) {
-      throw ApiExeption('اینترنت خود را چک کنید');
+    } on DioError catch (ex) {
+      throw ApiExeption(
+        ex.response!.statusCode == 400
+            ? 'کاربر از قبل وجود دارد'
+            : 'اینترنت خود را چک کنید',
+      );
     } catch (_) {
       throw ApiExeption('مشکلی در سرور پیش آمده');
     }

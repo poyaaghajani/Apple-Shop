@@ -21,10 +21,10 @@ class CustomSnackbar {
       message: message,
       padding: const EdgeInsets.symmetric(vertical: 8),
       messageColor: CustomColors.deepGrey,
-      messageSize: 12,
+      messageSize: 13,
       boxShadows: [
         BoxShadow(
-          color: Colors.grey.shade200,
+          color: Colors.grey.shade300,
           offset: const Offset(1, 1),
           blurRadius: 3,
         ),
