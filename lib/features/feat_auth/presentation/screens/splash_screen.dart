@@ -120,8 +120,9 @@ class _SplashScreenState extends State<SplashScreen>
                   onTap: () {
                     var token = AuthManager.readToken();
                     var username = AuthManager.readUsername();
+                    var userId = AuthManager.readUserId();
 
-                    if (token.isEmpty && username.isEmpty) {
+                    if (token.isEmpty && username.isEmpty && userId.isEmpty) {
                       context.pushAndRemoveUntilRTL(
                         BlocProvider(
                           create: (context) => locator.get<LoginBloc>(),

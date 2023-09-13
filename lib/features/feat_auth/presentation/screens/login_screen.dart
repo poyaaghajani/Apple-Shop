@@ -95,7 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           (success) {
                             AuthManager.saveUsername(_usernameController.text);
-                            AuthManager.readUsername();
                             context.pushAndRemoveUntilRTL(const MainScreen());
                           },
                         );
@@ -105,7 +104,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (state is LoginInit) {
                         return ElevatedButton(
                           onPressed: () {
-                            AuthManager.readToken();
                             BlocProvider.of<LoginBloc>(context).add(
                               LoginPressed(
                                 identity: _usernameController.text,
@@ -124,7 +122,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           (errorMessage) {
                             return ElevatedButton(
                               onPressed: () {
-                                AuthManager.readToken();
                                 BlocProvider.of<LoginBloc>(context).add(
                                   LoginPressed(
                                     identity: _usernameController.text,
@@ -138,7 +135,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           (success) {
                             return ElevatedButton(
                               onPressed: () {
-                                AuthManager.readToken();
                                 BlocProvider.of<LoginBloc>(context).add(
                                   LoginPressed(
                                     identity: _usernameController.text,

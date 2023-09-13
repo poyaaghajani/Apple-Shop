@@ -2,7 +2,6 @@ import 'package:apple_shop/config/route/route.dart';
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
-import 'package:apple_shop/core/utils/auth_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/button_loading.dart';
 import 'package:apple_shop/core/widgets/custom_snackbar.dart';
@@ -101,7 +100,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             }
                           },
                           (success) {
-                            AuthManager.readUsername();
                             context.pushAndRemoveUntilRTL(const MainScreen());
                           },
                         );
@@ -109,7 +107,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                     },
                     builder: (context, state) {
                       if (state is SingupInit) {
-                        AuthManager.readToken();
                         return ElevatedButton(
                           onPressed: () {
                             context.read<SingupBloc>().add(SingupPressed(
@@ -129,7 +126,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         return state.response.fold((error) {
                           return ElevatedButton(
                             onPressed: () {
-                              AuthManager.readToken();
                               context.read<SingupBloc>().add(SingupPressed(
                                     username: _usernameController.text,
                                     password: _passwordController.text,
@@ -142,7 +138,6 @@ class _SingUpScreenState extends State<SingUpScreen> {
                         }, (success) {
                           return ElevatedButton(
                             onPressed: () {
-                              AuthManager.readToken();
                               context.read<SingupBloc>().add(SingupPressed(
                                     username: _usernameController.text,
                                     password: _passwordController.text,

@@ -65,7 +65,7 @@ class Items {
     userId = json['user_id'];
     userThumnail =
         'http://startflutter.ir/api/files/${json['expand']['user_id']['collectionName']}/${json['expand']['user_id']['id']}/${json['expand']['user_id']['avatar']}';
-    username = json['expand']['user_id']['name'];
+    username = json['expand']['user_id']['username'];
     avatar = json['expand']['user_id']['avatar'];
   }
 }

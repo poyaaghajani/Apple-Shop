@@ -3,8 +3,8 @@ import 'package:apple_shop/core/utils/api_exeption.dart';
 import 'package:dio/dio.dart';
 
 abstract class IAuthDatasource {
-  Future<String> singUp(AuthParams params);
-  Future<String> logIn(AuthParams params);
+  Future<List<String>> singUp(AuthParams params);
+  Future<List<String>> logIn(AuthParams params);
 }
 
 class AuthDatasource extends IAuthDatasource {
@@ -13,7 +13,7 @@ class AuthDatasource extends IAuthDatasource {
 
   // singUp
   @override
-  Future<String> singUp(AuthParams params) async {
+  Future<List<String>> singUp(AuthParams params) async {
     try {
       final response = await dio.post('collections/users/records', data: {
         'username': params.username,
@@ -22,19 +22,21 @@ class AuthDatasource extends IAuthDatasource {
       });
 
       if (response.statusCode == 200) {
-        return response.data['username'];
+        String userId = response.data['id'];
+        String username = response.data['username'];
+        return [userId, username];
       }
     } on DioError catch (_) {
       throw ApiExeption('اینترنت خود را چک کنید');
     } catch (_) {
       throw ApiExeption('مشکلی در سرور پیش آمده');
     }
-    return 'خطای نا مشخص';
+    return ['خطای نا مشخص'];
   }
 
   // login
   @override
-  Future<String> logIn(AuthParams params) async {
+  Future<List<String>> logIn(AuthParams params) async {
     try {
       final response =
           await dio.post('collections/users/auth-with-password', data: {
@@ -42,13 +44,15 @@ class AuthDatasource extends IAuthDatasource {
         'password': params.password,
       });
       if (response.statusCode == 200) {
-        return response.data['token'];
+        String userId = response.data['record']['id'];
+        String token = response.data['token'];
+        return [userId, token];
       }
     } on DioError catch (_) {
       throw ApiExeption('کاربری با این مشخصات وجود ندارد');
     } catch (_) {
       throw ApiExeption('مشکلی در سرور پیش آمده');
     }
-    return 'خطای نا مشخص';
+    return ['خطای نا مشخص'];
   }
 }

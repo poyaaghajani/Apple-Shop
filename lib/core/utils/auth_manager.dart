@@ -16,7 +16,7 @@ class AuthManager {
 
   // read token
   static String readToken() {
-    debugPrint('user token --> ${sharedPref.getString('access_token')}');
+    debugPrint('userToken --> ${sharedPref.getString('access_token')}');
     return sharedPref.getString('access_token') ?? '';
   }
 
@@ -30,6 +30,18 @@ class AuthManager {
   static String readUsername() {
     debugPrint('username --> ${sharedPref.getString('username')}');
     return sharedPref.getString('username') ?? '';
+  }
+
+  // save userId
+  static void saveUserId(String userId) {
+    sharedPref.setString('userId', userId);
+    authNotifire.value = userId;
+  }
+
+  // read userId
+  static String readUserId() {
+    debugPrint('userId --> ${sharedPref.getString('userId')}');
+    return sharedPref.getString('userId') ?? '';
   }
 
   // logOut
