@@ -13,6 +13,7 @@ Here're some of the project's best features:
 *   Add product to basket
 *   Watch each product detail
 *   Payment with zarinpal
+*   Show each product comments and add new comment
 
   
 <h2>💻 Built with</h2>
@@ -104,4 +105,12 @@ Technologies used in the project:
 
 
 ![Screenshot_20230724-131550](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/ad10423a-ada6-4a25-a07f-eb1eaf7bfb56)
+
+
+
+![Screenshot_20230913-182244](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/7c2e64ea-6f77-4db8-9ee4-58bb599514a9)
+
+
+
+![Screenshot_20230913-182145](https://github.com/poyaaghajani/Apple-Shop/assets/107408431/86df6a3e-9af5-45f3-b09b-a55d75fc0733)
 
