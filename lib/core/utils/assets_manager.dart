@@ -41,4 +41,6 @@ class AssetsManager {
   static const String leave = '$imagePath/leave.svg';
   static const String deleteBig = '$imagePath/delete-big.svg';
   static const String send = '$imagePath/send.svg';
+  static const String snackGreen = '$imagePath/snack-green.svg';
+  static const String snackRed = '$imagePath/snack-red.svg';
 }

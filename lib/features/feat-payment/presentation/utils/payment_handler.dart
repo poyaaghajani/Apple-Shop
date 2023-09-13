@@ -1,7 +1,10 @@
+import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/extensions/extract_value.dart';
+import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/features/feat-payment/presentation/utils/url_handler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:zarinpal/zarinpal.dart';
 
@@ -43,9 +46,21 @@ class ZarinpalPayment extends PaymentHandler {
         ZarinPal().verificationPayment(status!, authority!, _paymentRequest,
             (isPaymentSuccess, refID, paymentRequest) {
           if (isPaymentSuccess) {
-            CustomSnackbar.showSnack(context, 'خرید شما با موفقیت انجام شد');
+            CustomSnackbar.showSnack(
+              context: context,
+              icon: SvgPicture.asset(AssetsManager.snackGreen),
+              title: 'موفقیت آمیز',
+              titleColor: CustomColors.green,
+              message: 'خرید شما با موفقیت انجام شد',
+            );
           } else {
-            CustomSnackbar.showSnack(context, 'خرید انجام نشد');
+            CustomSnackbar.showSnack(
+              context: context,
+              icon: SvgPicture.asset(AssetsManager.snackRed),
+              title: 'ناموفق',
+              titleColor: CustomColors.red,
+              message: 'خرید انجام نشد',
+            );
           }
         });
       }

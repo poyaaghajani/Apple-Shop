@@ -94,9 +94,20 @@ class _SingUpScreenState extends State<SingUpScreen> {
                                 _passwordController.text.isEmpty ||
                                 _passwordConfirmController.text.isEmpty) {
                               CustomSnackbar.showSnack(
-                                  context, 'پرکردن فیلد الزامی است');
+                                context: context,
+                                icon: SvgPicture.asset(AssetsManager.snackRed),
+                                title: 'نا موفق',
+                                titleColor: CustomColors.red,
+                                message: 'پرکردن فیلد الزامی است',
+                              );
                             } else {
-                              CustomSnackbar.showSnack(context, errorMessage);
+                              CustomSnackbar.showSnack(
+                                context: context,
+                                icon: SvgPicture.asset(AssetsManager.snackRed),
+                                title: 'نا موفق',
+                                titleColor: CustomColors.red,
+                                message: errorMessage,
+                              );
                             }
                           },
                           (success) {

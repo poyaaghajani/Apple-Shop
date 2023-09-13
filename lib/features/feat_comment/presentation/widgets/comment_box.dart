@@ -45,7 +45,10 @@ class CommentBox extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: item.avatar != ""
-                ? CachedImage(imageUrl: item.userThumnail)
+                ? CachedImage(
+                    imageUrl: item.userThumnail,
+                    radius: 100,
+                  )
                 : Image.asset(AssetsManager.user),
           ),
           const SizedBox(width: Dimens.eight),

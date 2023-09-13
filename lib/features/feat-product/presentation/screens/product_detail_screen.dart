@@ -201,10 +201,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 if (state is AddBasketCompleted) {
                                   state.basket.fold((errorMessage) {
                                     CustomSnackbar.showSnack(
-                                        context, errorMessage);
+                                      context: context,
+                                      icon: SvgPicture.asset(
+                                          AssetsManager.snackRed),
+                                      title: 'ناموفق',
+                                      titleColor: CustomColors.red,
+                                      message: errorMessage,
+                                    );
                                   }, (successMessage) {
                                     CustomSnackbar.showSnack(
-                                        context, successMessage);
+                                      context: context,
+                                      icon: SvgPicture.asset(
+                                          AssetsManager.snackGreen),
+                                      title: 'موفقیت آمیز',
+                                      titleColor: CustomColors.green,
+                                      message: successMessage,
+                                    );
                                   });
                                 }
                               },

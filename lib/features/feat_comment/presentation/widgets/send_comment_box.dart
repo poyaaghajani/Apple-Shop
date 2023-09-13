@@ -37,13 +37,25 @@ class SendCommentBox extends StatelessWidget {
               if (state is AddCommentCompleted) {
                 state.message.fold((error) {
                   commentController.clear();
-                  CustomSnackbar.showSnack(context, error);
+                  CustomSnackbar.showSnack(
+                    context: context,
+                    icon: SvgPicture.asset(AssetsManager.snackRed),
+                    title: 'ناموفق',
+                    titleColor: CustomColors.red,
+                    message: error,
+                  );
                 }, (success) {
                   commentController.clear();
                   context
                       .read<GetCommentBloc>()
                       .add(GetCommetsRequest(item.id, page));
-                  CustomSnackbar.showSnack(context, success);
+                  CustomSnackbar.showSnack(
+                    context: context,
+                    icon: SvgPicture.asset(AssetsManager.snackGreen),
+                    title: 'موفقیت آمیز',
+                    titleColor: CustomColors.green,
+                    message: success,
+                  );
                 });
               }
             },
