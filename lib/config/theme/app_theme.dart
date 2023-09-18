@@ -13,11 +13,11 @@ class AppTheme {
           color: CustomColors.deepGrey,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: CustomColors.dark),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
             color: CustomColors.blue,
             width: 2,
@@ -31,7 +31,7 @@ class AppTheme {
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(6),
             ),
           ),
           textStyle: MaterialStateProperty.resolveWith((states) {

@@ -13,8 +13,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> scaleAnimation =
+      Tween<double>(begin: 55, end: 65).animate(_animationController);
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1200));
+    final CurvedAnimation curve = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+
+    scaleAnimation = Tween<double>(begin: 55, end: 65).animate(curve);
+
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _animationController.reverse();
+      } else if (status == AnimationStatus.dismissed) {
+        _animationController.forward();
+      }
+    });
+
+    // Repeat the animation indefinitely with forward and reverse motions
+    _animationController.repeat(min: 0, max: 1, reverse: true);
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,34 +108,66 @@ class SplashScreen extends StatelessWidget {
           ),
 
           // navigate button
-          Positioned(
-            top: DevSize.getHeight(context) / 1.26,
-            right: Dimens.fortyFour,
-            child: InkWell(
-              onTap: () {
-                var token = AuthManager.readToken();
-                var username = AuthManager.readUsername();
+          Padding(
+            padding: EdgeInsets.only(
+              left: DevSize.getWidth(context) / 1.5,
+              top: DevSize.getHeight(context) / 1.5,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    var token = AuthManager.readToken();
+                    var username = AuthManager.readUsername();
+                    var userId = AuthManager.readUserId();
 
-                if (token.isEmpty && username.isEmpty) {
-                  context.pushAndRemoveUntilRTL(
-                    BlocProvider(
-                      create: (context) => locator.get<LoginBloc>(),
-                      child: const LoginScreen(),
-                    ),
-                  );
-                } else {
-                  context.pushAndRemoveUntilRTL(const MainScreen());
-                }
-              },
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: CustomColors.deepBlue,
+                    if (token.isEmpty && username.isEmpty && userId.isEmpty) {
+                      context.pushAndRemoveUntilRTL(
+                        BlocProvider(
+                          create: (context) => locator.get<LoginBloc>(),
+                          child: const LoginScreen(),
+                        ),
+                      );
+                    } else {
+                      context.pushAndRemoveUntilRTL(const MainScreen());
+                    }
+                  },
+                  child: AnimatedBuilder(
+                    animation: _animationController,
+                    builder: (context, child) {
+                      return Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          AnimatedBuilder(
+                            animation: _animationController,
+                            builder: (context, child) {
+                              return Container(
+                                width: scaleAnimation.value,
+                                height: scaleAnimation.value,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: CustomColors.deepBlue,
+                                ),
+                              );
+                            },
+                          ),
+                          SvgPicture.asset(AssetsManager.arrowRightCircle),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: SvgPicture.asset(AssetsManager.arrowRightCircle),
-                ),
+              ],
+            ),
+          ),
+
+          Positioned(
+            bottom: 10,
+            child: Text(
+              'بزن بریم',
+              style: textTheme.titleSmall!.apply(
+                color: CustomColors.white,
               ),
             ),
           ),

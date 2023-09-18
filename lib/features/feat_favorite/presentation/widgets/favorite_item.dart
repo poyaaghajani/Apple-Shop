@@ -93,7 +93,13 @@ class FavoriteItem extends StatelessWidget {
                   onTap: () {
                     favorite.removeFromFavorite(product);
                     context.read<FavoriteBloc>().add(GetAllFavoriteProducts());
-                    CustomSnackbar.showSnack(context, 'محصول از لیست حذف شد');
+                    CustomSnackbar.showSnack(
+                      context: context,
+                      icon: SvgPicture.asset(AssetsManager.snackGreen),
+                      title: 'موفقیت آمیز',
+                      titleColor: CustomColors.green,
+                      message: 'محصول از لیست حذف شد',
+                    );
                   },
                   child: SvgPicture.asset(
                     AssetsManager.deleteBig,

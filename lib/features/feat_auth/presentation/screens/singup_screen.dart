@@ -2,11 +2,11 @@ import 'package:apple_shop/config/route/route.dart';
 import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
-import 'package:apple_shop/core/utils/auth_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/core/widgets/button_loading.dart';
 import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
+import 'package:apple_shop/features/feat_auth/presentation/utils/handler.dart';
 import 'package:apple_shop/features/feat_auth/presentation/widgets/auth_box.dart';
 import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -91,26 +91,34 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       if (state is SingupCompleted) {
                         state.response.fold(
                           (errorMessage) {
-                            if (_usernameController.text.isEmpty ||
-                                _passwordController.text.isEmpty ||
-                                _passwordConfirmController.text.isEmpty) {
-                              CustomSnackbar.showSnack(
-                                  context, 'پرکردن فیلد الزامی است');
-                            } else {
-                              CustomSnackbar.showSnack(context, errorMessage);
-                            }
+                            singupHandler(
+                              _usernameController,
+                              _passwordController,
+                              _passwordConfirmController,
+                              errorMessage,
+                              context,
+                            );
                           },
                           (success) {
-                            AuthManager.readUsername();
                             context.pushAndRemoveUntilRTL(const MainScreen());
+                            CustomSnackbar.showSnack(
+                              context: context,
+                              icon: SvgPicture.asset(AssetsManager.snackGreen),
+                              title: 'موفقیت آمیز',
+                              titleColor: CustomColors.green,
+                              message: success[0],
+                            );
                           },
                         );
                       }
                     },
                     builder: (context, state) {
                       if (state is SingupInit) {
-                        AuthManager.readToken();
                         return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize:
+                                Size(DevSize.getWidth(context) / 2.5, 46),
+                          ),
                           onPressed: () {
                             context.read<SingupBloc>().add(SingupPressed(
                                   username: _usernameController.text,
@@ -128,8 +136,11 @@ class _SingUpScreenState extends State<SingUpScreen> {
                       if (state is SingupCompleted) {
                         return state.response.fold((error) {
                           return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize:
+                                  Size(DevSize.getWidth(context) / 2.5, 46),
+                            ),
                             onPressed: () {
-                              AuthManager.readToken();
                               context.read<SingupBloc>().add(SingupPressed(
                                     username: _usernameController.text,
                                     password: _passwordController.text,
@@ -140,18 +151,7 @@ class _SingUpScreenState extends State<SingUpScreen> {
                             child: const Text('تلاش مجدد'),
                           );
                         }, (success) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              AuthManager.readToken();
-                              context.read<SingupBloc>().add(SingupPressed(
-                                    username: _usernameController.text,
-                                    password: _passwordController.text,
-                                    passwordConfirm:
-                                        _passwordConfirmController.text,
-                                  ));
-                            },
-                            child: const Text('حساب کاربری جدید'),
-                          );
+                          return const SizedBox();
                         });
                       } else {
                         return const SizedBox();

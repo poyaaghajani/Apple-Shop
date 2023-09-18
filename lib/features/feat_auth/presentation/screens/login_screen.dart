@@ -9,6 +9,7 @@ import 'package:apple_shop/core/widgets/custom_snackbar.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/bloc/singup_bloc/singup_bloc.dart';
 import 'package:apple_shop/features/feat_auth/presentation/screens/singup_screen.dart';
+import 'package:apple_shop/features/feat_auth/presentation/utils/handler.dart';
 import 'package:apple_shop/features/feat_auth/presentation/widgets/auth_box.dart';
 import 'package:apple_shop/features/feat_main/presentation/screens/main_screen.dart';
 import 'package:apple_shop/locator.dart';
@@ -85,18 +86,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (state is LoginCompleted) {
                         state.response.fold(
                           (errorMessage) {
-                            if (_usernameController.text.isEmpty ||
-                                _passwordController.text.isEmpty) {
-                              CustomSnackbar.showSnack(
-                                  context, 'پرکردن فیلد الزامی است');
-                            } else {
-                              CustomSnackbar.showSnack(context, errorMessage);
-                            }
+                            loginHandler(
+                              _usernameController,
+                              _passwordController,
+                              errorMessage,
+                              context,
+                            );
                           },
                           (success) {
                             AuthManager.saveUsername(_usernameController.text);
-                            AuthManager.readUsername();
                             context.pushAndRemoveUntilRTL(const MainScreen());
+                            CustomSnackbar.showSnack(
+                              context: context,
+                              icon: SvgPicture.asset(AssetsManager.snackGreen),
+                              title: 'موفقیت آمیز',
+                              titleColor: CustomColors.green,
+                              message: success[0],
+                            );
                           },
                         );
                       }
@@ -104,8 +110,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     builder: (context, state) {
                       if (state is LoginInit) {
                         return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize:
+                                Size(DevSize.getWidth(context) / 2.5, 46),
+                          ),
                           onPressed: () {
-                            AuthManager.readToken();
                             BlocProvider.of<LoginBloc>(context).add(
                               LoginPressed(
                                 identity: _usernameController.text,
@@ -123,8 +132,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         return state.response.fold(
                           (errorMessage) {
                             return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize:
+                                    Size(DevSize.getWidth(context) / 2.5, 46),
+                              ),
                               onPressed: () {
-                                AuthManager.readToken();
                                 BlocProvider.of<LoginBloc>(context).add(
                                   LoginPressed(
                                     identity: _usernameController.text,
@@ -136,18 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           },
                           (success) {
-                            return ElevatedButton(
-                              onPressed: () {
-                                AuthManager.readToken();
-                                BlocProvider.of<LoginBloc>(context).add(
-                                  LoginPressed(
-                                    identity: _usernameController.text,
-                                    password: _passwordController.text,
-                                  ),
-                                );
-                              },
-                              child: const Text('ورود به حساب کاربری'),
-                            );
+                            return const SizedBox();
                           },
                         );
                       } else {

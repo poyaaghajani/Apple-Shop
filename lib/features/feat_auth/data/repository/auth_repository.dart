@@ -5,8 +5,8 @@ import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.da
 import 'package:dartz/dartz.dart';
 
 abstract class IAuthRepository {
-  Future<Either<String, String>> singUp(AuthParams params);
-  Future<Either<String, String>> logIn(AuthParams params);
+  Future<Either<String, List<String>>> singUp(AuthParams params);
+  Future<Either<String, List<String>>> logIn(AuthParams params);
 }
 
 class AuthRepository extends IAuthRepository {
@@ -15,12 +15,14 @@ class AuthRepository extends IAuthRepository {
 
   // singup
   @override
-  Future<Either<String, String>> singUp(AuthParams params) async {
+  Future<Either<String, List<String>>> singUp(AuthParams params) async {
     try {
-      final username = await authDatasource.singUp(params);
-      if (username.isNotEmpty) {
-        AuthManager.saveUsername(username);
-        return right('خوش آمدید');
+      final user = await authDatasource.singUp(params);
+      if (user.isNotEmpty) {
+        AuthManager.saveUserId(user[0]);
+        AuthManager.saveUsername(user[1]);
+
+        return right(['به اپل شاپ خوش آمدید']);
       }
     } on ApiExeption catch (ex) {
       return left(ex.message!);
@@ -30,12 +32,14 @@ class AuthRepository extends IAuthRepository {
 
   // login
   @override
-  Future<Either<String, String>> logIn(AuthParams params) async {
+  Future<Either<String, List<String>>> logIn(AuthParams params) async {
     try {
-      final token = await authDatasource.logIn(params);
-      if (token.isNotEmpty) {
-        AuthManager.saveToken(token);
-        return right('خوش آمدید');
+      final user = await authDatasource.logIn(params);
+      if (user.isNotEmpty) {
+        AuthManager.saveUserId(user[0]);
+        AuthManager.saveToken(user[1]);
+
+        return right(['به اپل شاپ خوش آمدید']);
       }
     } on ApiExeption catch (ex) {
       return left(ex.message!);

@@ -17,6 +17,10 @@ import 'package:apple_shop/features/feat_category/data/datasource/category_datas
 import 'package:apple_shop/features/feat_category/data/repository/category_repository.dart';
 import 'package:apple_shop/features/feat_category/presentation/bloc/category/category_bloc.dart';
 import 'package:apple_shop/features/feat_category/presentation/bloc/category_detail/category_detail_bloc.dart';
+import 'package:apple_shop/features/feat_comment/data/datasource/comment_datasource.dart';
+import 'package:apple_shop/features/feat_comment/data/repository/comment_repository.dart';
+import 'package:apple_shop/features/feat_comment/presentation/bloc/add_comment/add_comment_bloc.dart';
+import 'package:apple_shop/features/feat_comment/presentation/bloc/get_comment/get_comment_bloc.dart';
 import 'package:apple_shop/features/feat_favorite/data/datasource/favorite_datasource.dart';
 import 'package:apple_shop/features/feat_favorite/data/repository/favorite_repository.dart';
 import 'package:apple_shop/features/feat_favorite/presentation/bloc/favorite_bloc.dart';
@@ -57,8 +61,11 @@ Future<void> getInit() async {
   locator.registerSingleton<IFavoriteDatasource>(
     FavoriteLocalDatasource(),
   );
+  locator.registerSingleton<ICommentDatasource>(
+    CommentRemoteDatasource(locator()),
+  );
 
-  // repositories
+  // repository
   locator.registerSingleton<IAuthRepository>(
     AuthRepository(locator()),
   );
@@ -76,6 +83,9 @@ Future<void> getInit() async {
   );
   locator.registerSingleton<IFavoriteRepository>(
     FavoriteRepository(locator()),
+  );
+  locator.registerSingleton<ICommentRepository>(
+    CommentRepository(locator()),
   );
 
   // blocs
@@ -114,5 +124,11 @@ Future<void> getInit() async {
   );
   locator.registerSingleton<FavoriteBloc>(
     (FavoriteBloc(locator())),
+  );
+  locator.registerFactory<GetCommentBloc>(
+    () => (GetCommentBloc(locator())),
+  );
+  locator.registerFactory<AddCommentBloc>(
+    () => AddCommentBloc(locator()),
   );
 }

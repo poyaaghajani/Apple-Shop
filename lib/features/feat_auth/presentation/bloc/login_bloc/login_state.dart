@@ -18,7 +18,7 @@ class LoginLoading extends LoginState {
 
 // completed
 class LoginCompleted extends LoginState {
-  final Either<String, String> response;
+  final Either<String, List<String>> response;
 
   const LoginCompleted(this.response);
 

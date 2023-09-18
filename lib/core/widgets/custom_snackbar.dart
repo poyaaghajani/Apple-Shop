@@ -3,15 +3,37 @@ import 'package:apple_shop/core/constants/custom_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomSnackbar {
-  static showSnack(context, String message) {
+  static showSnack({
+    required BuildContext context,
+    required String message,
+    required String title,
+    required Color titleColor,
+    required Widget icon,
+  }) {
     Flushbar(
+      title: title,
+      titleColor: titleColor,
+      titleSize: 16,
+      icon: Padding(
+        padding: const EdgeInsets.only(bottom: 27),
+        child: icon,
+      ),
       message: message,
-      textDirection: TextDirection.rtl,
-      messageColor: CustomColors.white,
-      backgroundColor: CustomColors.dark,
-      duration: const Duration(seconds: 1),
-      margin: const EdgeInsets.symmetric(horizontal: 5),
-      borderRadius: BorderRadius.circular(8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      messageColor: CustomColors.deepGrey,
+      messageSize: 13,
+      boxShadows: [
+        BoxShadow(
+          color: Colors.grey.shade300,
+          offset: const Offset(1, 1),
+          blurRadius: 3,
+        ),
+      ],
+      backgroundColor: CustomColors.white,
+      duration: const Duration(milliseconds: 1500),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      borderRadius: BorderRadius.circular(10),
+      positionOffset: 50,
       flushbarPosition: FlushbarPosition.TOP,
     ).show(context);
   }
