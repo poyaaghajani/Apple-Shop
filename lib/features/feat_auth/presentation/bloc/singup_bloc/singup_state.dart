@@ -18,7 +18,7 @@ class SingupLoading extends SingupState {
 
 // completed
 class SingupCompleted extends SingupState {
-  final Either<String, String> response;
+  final Either<String, List<String>> response;
 
   const SingupCompleted(this.response);
 

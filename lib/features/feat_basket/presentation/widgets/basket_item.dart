@@ -123,10 +123,22 @@ class BasketItem extends StatelessWidget {
                               if (state is RemoveBasketCompleted) {
                                 state.removeFromBasket.fold((errorMessage) {
                                   CustomSnackbar.showSnack(
-                                      context, errorMessage);
+                                    context: context,
+                                    icon: SvgPicture.asset(
+                                        AssetsManager.snackRed),
+                                    title: 'نا موفق',
+                                    titleColor: CustomColors.red,
+                                    message: errorMessage,
+                                  );
                                 }, (successMessage) {
                                   CustomSnackbar.showSnack(
-                                      context, successMessage);
+                                    context: context,
+                                    icon: SvgPicture.asset(
+                                        AssetsManager.snackGreen),
+                                    title: 'موفقیت آمیز',
+                                    titleColor: CustomColors.green,
+                                    message: successMessage,
+                                  );
                                 });
                               }
                             },

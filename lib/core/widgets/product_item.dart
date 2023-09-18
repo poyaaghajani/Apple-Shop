@@ -83,14 +83,24 @@ class _ProductItemState extends State<ProductItem> {
                             .read<FavoriteBloc>()
                             .add(GetAllFavoriteProducts());
                         CustomSnackbar.showSnack(
-                            context, 'محصول به لیست اضافه شد');
+                          context: context,
+                          icon: SvgPicture.asset(AssetsManager.snackGreen),
+                          title: 'موفقیت آمیز',
+                          titleColor: CustomColors.green,
+                          message: 'محصول به لیست اضافه شد',
+                        );
                       } else {
                         favorite.removeFromFavorite(widget.product);
                         context
                             .read<FavoriteBloc>()
                             .add(GetAllFavoriteProducts());
                         CustomSnackbar.showSnack(
-                            context, 'محصول از لیست حذف شد');
+                          context: context,
+                          icon: SvgPicture.asset(AssetsManager.snackGreen),
+                          title: 'موفقیت آمیز',
+                          titleColor: CustomColors.green,
+                          message: 'محصول از لیست حذف شد',
+                        );
                       }
                       setState(() {});
                     },
