@@ -36,7 +36,13 @@ final locator = GetIt.instance;
 Future<void> getInit() async {
   // components
   locator.registerSingleton<Dio>(Dio(
-    BaseOptions(baseUrl: 'http://startflutter.ir/api/'),
+    BaseOptions(
+      baseUrl: 'http://startflutter.ir/api/',
+      // headers: {
+      //   'Authorization':
+      //       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJfcGJfdXNlcnNfYXV0aF8iLCJleHAiOjE2OTgyNjY2NjEsImlkIjoicDc3aG96dWthcGo5ZW1xIiwidHlwZSI6ImF1dGhSZWNvcmQifQ.f1QgUc56CcvfkaIBCMgoKs7vUMqJ2fCQKJ0sIoDaBQo',
+      // },
+    ),
   ));
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());
