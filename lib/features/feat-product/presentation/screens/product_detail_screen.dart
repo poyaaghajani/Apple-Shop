@@ -177,82 +177,101 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     }, (properties) {
                       return ProductProperties(properties: properties);
                     }),
+                  ],
 
-                    // product description
-                    ProductDescription(productModel: widget.product),
+                  // product description
+                  ProductDescription(productModel: widget.product),
 
-                    // product comments
-                    ProductComments(item: widget.product),
+                  // product comments
+                  if (state is PrductDetailCompleted) ...[
+                    state.comments.fold(
+                      (errorMessage) {
+                        return SliverToBoxAdapter(
+                          child: SizedBox(
+                            height: DevSize.getHeight(context) / 20,
+                            child: Center(
+                              child: Text(errorMessage),
+                            ),
+                          ),
+                        );
+                      },
+                      (comments) {
+                        return ProductComments(
+                          item: widget.product,
+                          comments: comments,
+                        );
+                      },
+                    ),
+                  ],
 
-                    // add to basket and prie button
-                    SliverPadding(
-                      padding: const EdgeInsets.only(
-                        top: Dimens.thirtytwo,
-                        left: Dimens.twenty,
-                        right: Dimens.twenty,
-                      ),
-                      sliver: SliverToBoxAdapter(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            // add to basket button
-                            BlocConsumer<AddBasketBloc, AddBasketState>(
-                              listener: (context, state) {
-                                if (state is AddBasketCompleted) {
-                                  state.basket.fold((errorMessage) {
-                                    CustomSnackbar.showSnack(
-                                      context: context,
-                                      icon: SvgPicture.asset(
-                                          AssetsManager.snackRed),
-                                      title: 'ناموفق',
-                                      titleColor: CustomColors.red,
-                                      message: errorMessage,
-                                    );
-                                  }, (successMessage) {
-                                    CustomSnackbar.showSnack(
-                                      context: context,
-                                      icon: SvgPicture.asset(
-                                          AssetsManager.snackGreen),
-                                      title: 'موفقیت آمیز',
-                                      titleColor: CustomColors.green,
-                                      message: successMessage,
-                                    );
-                                  });
-                                }
-                              },
-                              builder: (context, state) {
-                                if (state is AddBasketInit) {
+                  // add to basket and prie button
+                  SliverPadding(
+                    padding: const EdgeInsets.only(
+                      top: Dimens.thirtytwo,
+                      left: Dimens.twenty,
+                      right: Dimens.twenty,
+                    ),
+                    sliver: SliverToBoxAdapter(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          // add to basket button
+                          BlocConsumer<AddBasketBloc, AddBasketState>(
+                            listener: (context, state) {
+                              if (state is AddBasketCompleted) {
+                                state.basket.fold((errorMessage) {
+                                  CustomSnackbar.showSnack(
+                                    context: context,
+                                    icon: SvgPicture.asset(
+                                        AssetsManager.snackRed),
+                                    title: 'ناموفق',
+                                    titleColor: CustomColors.red,
+                                    message: errorMessage,
+                                  );
+                                }, (successMessage) {
+                                  CustomSnackbar.showSnack(
+                                    context: context,
+                                    icon: SvgPicture.asset(
+                                        AssetsManager.snackGreen),
+                                    title: 'موفقیت آمیز',
+                                    titleColor: CustomColors.green,
+                                    message: successMessage,
+                                  );
+                                });
+                              }
+                            },
+                            builder: (context, state) {
+                              if (state is AddBasketInit) {
+                                return AddToBasketButton(
+                                  product: widget.product,
+                                );
+                              }
+                              if (state is AddBasketCompleted) {
+                                return state.basket.fold((error) {
                                   return AddToBasketButton(
                                     product: widget.product,
                                   );
-                                }
-                                if (state is AddBasketCompleted) {
-                                  return state.basket.fold((error) {
-                                    return AddToBasketButton(
-                                      product: widget.product,
-                                    );
-                                  }, (success) {
-                                    return AddToBasketButton(
-                                      product: widget.product,
-                                    );
-                                  });
-                                } else {
-                                  return const SizedBox();
-                                }
-                              },
-                            ),
+                                }, (success) {
+                                  return AddToBasketButton(
+                                    product: widget.product,
+                                  );
+                                });
+                              } else {
+                                return const SizedBox();
+                              }
+                            },
+                          ),
 
-                            // price button
-                            PriceButton(product: widget.product),
-                          ],
-                        ),
+                          // price button
+                          PriceButton(product: widget.product),
+                        ],
                       ),
                     ),
+                  ),
 
-                    const SliverPadding(
-                      padding: EdgeInsets.only(bottom: Dimens.thirtytwo),
-                    ),
-                  ],
+                  const SliverPadding(
+                    padding: EdgeInsets.only(bottom: Dimens.thirtytwo),
+                  ),
                 ],
               );
             },

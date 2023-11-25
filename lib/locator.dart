@@ -104,7 +104,7 @@ Future<void> getInit() async {
     () => CategoryDetalBloc(locator()),
   );
   locator.registerFactory<ProductDetailBloc>(
-    () => ProductDetailBloc(locator(), locator()),
+    () => ProductDetailBloc(locator(), locator(), locator()),
   );
   locator.registerFactory<ProductPopularityBloc>(
     () => ProductPopularityBloc(locator()),
