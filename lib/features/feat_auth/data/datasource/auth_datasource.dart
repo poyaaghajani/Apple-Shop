@@ -1,5 +1,6 @@
 import 'package:apple_shop/core/params/auth_params.dart';
 import 'package:apple_shop/core/utils/api_exeption.dart';
+import 'package:apple_shop/core/utils/dio_provider.dart';
 import 'package:dio/dio.dart';
 
 abstract class IAuthDatasource {
@@ -8,8 +9,7 @@ abstract class IAuthDatasource {
 }
 
 class AuthDatasource extends IAuthDatasource {
-  Dio dio;
-  AuthDatasource(this.dio);
+  Dio dio = DioProvider.requestWithOutToken();
 
   // singUp
   @override
