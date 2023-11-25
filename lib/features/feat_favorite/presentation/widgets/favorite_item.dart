@@ -98,7 +98,7 @@ class FavoriteItem extends StatelessWidget {
                       icon: SvgPicture.asset(AssetsManager.snackGreen),
                       title: 'موفقیت آمیز',
                       titleColor: CustomColors.green,
-                      message: 'محصول از لیست حذف شد',
+                      message: 'محصول از لیست علاقه مندی ها حذف شد',
                     );
                   },
                   child: SvgPicture.asset(

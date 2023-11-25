@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 state.hotestProducts.fold((errorMessage) {
                   return SliverToBoxAdapter(
                     child: SizedBox(
-                      height: DevSize.getHeight(context) / 3.6,
+                      height: DevSize.getHeight(context) / 3.5,
                       child: Center(
                         child: Text(errorMessage, style: textTheme.bodySmall),
                       ),
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 state.bestSellerProducts.fold((errorMessage) {
                   return SliverToBoxAdapter(
                     child: SizedBox(
-                      height: DevSize.getHeight(context) / 3.6,
+                      height: DevSize.getHeight(context) / 3.5,
                       child: Center(
                         child: Text(errorMessage, style: textTheme.bodySmall),
                       ),
