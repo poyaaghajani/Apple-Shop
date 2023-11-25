@@ -87,7 +87,7 @@ class _ProductItemState extends State<ProductItem> {
                           icon: SvgPicture.asset(AssetsManager.snackGreen),
                           title: 'موفقیت آمیز',
                           titleColor: CustomColors.green,
-                          message: 'محصول به لیست اضافه شد',
+                          message: 'محصول به لیست علاقه مندی ها اضافه شد',
                         );
                       } else {
                         favorite.removeFromFavorite(widget.product);
@@ -99,7 +99,7 @@ class _ProductItemState extends State<ProductItem> {
                           icon: SvgPicture.asset(AssetsManager.snackGreen),
                           title: 'موفقیت آمیز',
                           titleColor: CustomColors.green,
-                          message: 'محصول از لیست حذف شد',
+                          message: 'محصول از لیست علاقه مندی ها حذف شد',
                         );
                       }
                       setState(() {});

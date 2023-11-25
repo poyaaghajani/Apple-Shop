@@ -122,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: Dimens.twelve),
           child: Text(
-            'V-1.0.00',
+            'V-1.0.0',
             style: textTheme.labelSmall!.apply(
               color: CustomColors.grey,
             ),

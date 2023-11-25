@@ -3,14 +3,21 @@ import 'package:apple_shop/core/constants/dimens.dart';
 import 'package:apple_shop/core/utils/assets_manager.dart';
 import 'package:apple_shop/core/utils/devise_size.dart';
 import 'package:apple_shop/features/feat-product/data/models/product_model.dart';
+import 'package:apple_shop/features/feat-product/presentation/utils/set_comment_count.dart';
+import 'package:apple_shop/features/feat_comment/data/models/comment_model.dart';
 import 'package:apple_shop/features/feat_comment/presentation/utils/comment_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductComments extends StatelessWidget {
-  const ProductComments({super.key, required this.item});
+  const ProductComments({
+    super.key,
+    required this.item,
+    required this.comments,
+  });
 
   final ProductModel item;
+  final CommentModel comments;
 
   @override
   Widget build(BuildContext context) {
@@ -40,32 +47,35 @@ class ProductComments extends StatelessWidget {
                   const SizedBox(width: Dimens.eight),
                   Stack(
                     clipBehavior: Clip.none,
+                    alignment: Alignment.center,
                     children: [
-                      const CommentItem(color: Colors.red),
+                      const CommentItem(),
                       const Positioned(
                         right: 15,
-                        child: CommentItem(color: Colors.teal),
+                        child: CommentItem(),
                       ),
                       const Positioned(
                         right: 30,
-                        child: CommentItem(color: Colors.amber),
+                        child: CommentItem(),
                       ),
                       const Positioned(
                         right: 45,
-                        child: CommentItem(color: Colors.blue),
+                        child: CommentItem(),
                       ),
                       Positioned(
                         right: 60,
+                        top: 0,
+                        bottom: 0,
                         child: Container(
-                          height: 26,
-                          width: 26,
                           decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10),
+                            color: CustomColors.blue,
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 8),
                             child: Text(
-                              '+10',
+                              '${setCommentsCount(comments.totalItems!)} +',
                               style: textTheme.titleSmall!.apply(
                                 color: CustomColors.white,
                               ),
@@ -93,17 +103,16 @@ class ProductComments extends StatelessWidget {
 }
 
 class CommentItem extends StatelessWidget {
-  const CommentItem({super.key, required this.color});
-  final Color color;
+  const CommentItem({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 26,
       width: 26,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
+      decoration: const BoxDecoration(shape: BoxShape.circle),
+      child: Image.asset(
+        AssetsManager.user,
       ),
     );
   }

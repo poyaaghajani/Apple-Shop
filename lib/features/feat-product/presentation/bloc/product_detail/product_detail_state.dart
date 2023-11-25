@@ -16,12 +16,14 @@ class PrductDetailCompleted extends ProductDetailState {
   final Either<String, List<ProductVariant>> productVariants;
   final Either<String, List<PropertyModel>> properties;
   final Either<String, CategoryModel> productCategory;
+  final Either<String, CommentModel> comments;
 
   const PrductDetailCompleted(
     this.productGallery,
     this.productVariants,
     this.properties,
     this.productCategory,
+    this.comments,
   );
 
   @override
@@ -30,5 +32,6 @@ class PrductDetailCompleted extends ProductDetailState {
         productVariants,
         properties,
         productCategory,
+        comments,
       ];
 }

@@ -22,7 +22,7 @@ class ProfileItem extends StatelessWidget {
 
     return Column(
       children: [
-        InkWell(
+        GestureDetector(
           onTap: onTap,
           child: Container(
             height: DevSize.getHeight(context) / 14,
