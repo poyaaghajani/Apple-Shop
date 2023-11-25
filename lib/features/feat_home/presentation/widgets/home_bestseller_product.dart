@@ -23,8 +23,7 @@ class HomeBestSellerProducts extends StatelessWidget {
     var textTheme = Theme.of(context).textTheme;
 
     return SliverPadding(
-      padding:
-          const EdgeInsets.only(top: Dimens.thirtytwo, bottom: Dimens.twenty),
+      padding: const EdgeInsets.only(top: Dimens.thirtytwo),
       sliver: SliverToBoxAdapter(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +61,7 @@ class HomeBestSellerProducts extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: DevSize.getHeight(context) / 3.6,
+              height: DevSize.getHeight(context) / 3.5,
               child: ListView.builder(
                 physics: AppDef.defPhycics,
                 padding: const EdgeInsets.only(
@@ -73,7 +72,10 @@ class HomeBestSellerProducts extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(left: Dimens.eightTeen),
+                    padding: const EdgeInsets.only(
+                      left: Dimens.eightTeen,
+                      bottom: Dimens.eight,
+                    ),
                     child: ProductItem(product: products[index]),
                   );
                 },

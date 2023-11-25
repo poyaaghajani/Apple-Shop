@@ -1,3 +1,4 @@
+import 'package:apple_shop/core/utils/dio_provider.dart';
 import 'package:apple_shop/features/feat-payment/presentation/bloc/payment_bloc.dart';
 import 'package:apple_shop/features/feat-payment/presentation/utils/payment_handler.dart';
 import 'package:apple_shop/features/feat-product/data/datasource/product_datasource.dart';
@@ -34,17 +35,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 final locator = GetIt.instance;
 
 Future<void> getInit() async {
-  // components
-  locator.registerSingleton<Dio>(Dio(
-    BaseOptions(baseUrl: 'http://startflutter.ir/api/'),
-  ));
+  /// components
   locator.registerSingleton<SharedPreferences>(
       await SharedPreferences.getInstance());
+  locator.registerSingleton<Dio>(DioProvider.requestWithToken());
   locator.registerSingleton<PaymentHandler>(ZarinpalPayment());
 
-  // datasource
+  /// datasource
   locator.registerSingleton<IAuthDatasource>(
-    AuthDatasource(locator()),
+    AuthDatasource(),
   );
   locator.registerSingleton<IBannerDatasource>(
     BannerRemoteDatasource(locator()),
@@ -65,7 +64,7 @@ Future<void> getInit() async {
     CommentRemoteDatasource(locator()),
   );
 
-  // repository
+  /// repository
   locator.registerSingleton<IAuthRepository>(
     AuthRepository(locator()),
   );
@@ -88,7 +87,7 @@ Future<void> getInit() async {
     CommentRepository(locator()),
   );
 
-  // blocs
+  /// blocs
   locator.registerFactory<LoginBloc>(
     () => LoginBloc(locator()),
   );
@@ -105,7 +104,7 @@ Future<void> getInit() async {
     () => CategoryDetalBloc(locator()),
   );
   locator.registerFactory<ProductDetailBloc>(
-    () => ProductDetailBloc(locator(), locator()),
+    () => ProductDetailBloc(locator(), locator(), locator()),
   );
   locator.registerFactory<ProductPopularityBloc>(
     () => ProductPopularityBloc(locator()),
