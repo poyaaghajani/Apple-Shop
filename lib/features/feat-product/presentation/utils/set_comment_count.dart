@@ -23,6 +23,9 @@ int setCommentsCount(int totalItems) {
   if (totalItems > 50) {
     return 49;
   }
+  if (totalItems > 20) {
+    return 19;
+  }
   if (totalItems > 10) {
     return 9;
   } else {

@@ -25,7 +25,15 @@ class CommentRemoteDatasource extends ICommentDatasource {
         'collections/comment/records',
         queryParameters: query,
       );
-      return CommentModel.fromJson(response.data);
+
+      List<dynamic> filteredComments = response.data['items']
+          .where((comment) => comment['user_id'] != "")
+          .toList();
+
+      Map<String, dynamic> filteredResponse = Map.from(response.data);
+      filteredResponse['items'] = filteredComments;
+
+      return CommentModel.fromJson(filteredResponse);
     } on DioError catch (_) {
       throw ApiExeption('لیست کامنت از دسترس خارج شده');
     } catch (_) {
