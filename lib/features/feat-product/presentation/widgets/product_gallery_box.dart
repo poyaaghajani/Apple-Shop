@@ -36,6 +36,7 @@ class _ProductGalleryBoxState extends State<ProductGalleryBox> {
     var textTheme = Theme.of(context).textTheme;
 
     IFavoriteDatasource favorite = locator.get();
+    final bool isGallaryEmpty = widget.productGallery.isEmpty;
 
     return SliverToBoxAdapter(
       child: Padding(
@@ -101,56 +102,59 @@ class _ProductGalleryBoxState extends State<ProductGalleryBox> {
                 ),
               ),
               Positioned(
-                top: Dimens.eightTeen,
+                top: isGallaryEmpty ? null : Dimens.eightTeen,
                 child: SizedBox(
                   height: DevSize.getHeight(context) / 5.3,
                   width: DevSize.getWidth(context) / 3.2,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: CachedImage(
-                      imageUrl: widget.productGallery.isNotEmpty
-                          ? widget.productGallery[currentImage].imageUrl
-                          : widget.product.thumbnail,
+                      imageUrl: isGallaryEmpty
+                          ? widget.product.thumbnail
+                          : widget.productGallery[currentImage].imageUrl,
                       fit: BoxFit.fill,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: DevSize.getHeight(context) / 4.3),
-                child: SizedBox(
-                  height: DevSize.getHeight(context) / 10,
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(left: Dimens.twenty),
-                    itemCount: widget.productGallery.length,
-                    physics: AppDef.defPhycics,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            currentImage = index;
-                          });
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(right: Dimens.twenty),
-                          padding: const EdgeInsets.all(4),
-                          width: DevSize.getWidth(context) / 5,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: CustomColors.deepGrey,
+              if (!isGallaryEmpty)
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: DevSize.getHeight(context) / 4.3),
+                  child: SizedBox(
+                    height: DevSize.getHeight(context) / 10,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(left: Dimens.twenty),
+                      itemCount: widget.productGallery.length,
+                      physics: AppDef.defPhycics,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              currentImage = index;
+                            });
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(right: Dimens.twenty),
+                            width: DevSize.getWidth(context) / 5,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: CustomColors.deepGrey,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            child: CachedImage(
+                              imageUrl: widget.productGallery[index].imageUrl,
+                              fit: BoxFit.cover,
+                              radius: 10,
+                            ),
                           ),
-                          child: CachedImage(
-                            imageUrl: widget.productGallery[index].imageUrl,
-                          ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
