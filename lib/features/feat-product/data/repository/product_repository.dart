@@ -20,6 +20,7 @@ abstract class IProductRepository {
   Future<Either<String, List<ProductVariant>>> getProductVariants(
       String productId);
   Future<Either<String, List<PropertyModel>>> getProperties(String productId);
+  Future<Either<String, List<ProductModel>>> getAllProducts();
   // Future<Either<String, int>> getProductFinalPrice(ProductModel product);
 }
 
@@ -106,6 +107,17 @@ class ProductRepository extends IProductRepository {
     try {
       var properties = await datasource.getProperties(productId);
       return right(properties);
+    } on ApiExeption catch (ex) {
+      return left(ex.message ?? 'مشکلی در سرور پیش آمده');
+    }
+  }
+
+  // get all products
+  @override
+  Future<Either<String, List<ProductModel>>> getAllProducts() async {
+    try {
+      var products = await datasource.getAllProducts();
+      return right(products);
     } on ApiExeption catch (ex) {
       return left(ex.message ?? 'مشکلی در سرور پیش آمده');
     }

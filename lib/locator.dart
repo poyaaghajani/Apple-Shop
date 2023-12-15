@@ -3,6 +3,7 @@ import 'package:apple_shop/features/feat-payment/presentation/bloc/payment_bloc.
 import 'package:apple_shop/features/feat-payment/presentation/utils/payment_handler.dart';
 import 'package:apple_shop/features/feat-product/data/datasource/product_datasource.dart';
 import 'package:apple_shop/features/feat-product/data/repository/product_repository.dart';
+import 'package:apple_shop/features/feat-product/presentation/bloc/get_all_products/get_all_products_bloc.dart';
 import 'package:apple_shop/features/feat-product/presentation/bloc/product_detail/product_detail_bloc.dart';
 import 'package:apple_shop/features/feat-product/presentation/bloc/product_popularity/product_popularity_bloc.dart';
 import 'package:apple_shop/features/feat_auth/data/datasource/auth_datasource.dart';
@@ -129,5 +130,8 @@ Future<void> getInit() async {
   );
   locator.registerFactory<AddCommentBloc>(
     () => AddCommentBloc(locator()),
+  );
+  locator.registerFactory<GetAllProductsBloc>(
+    () => GetAllProductsBloc(locator()),
   );
 }

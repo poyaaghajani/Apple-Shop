@@ -6,9 +6,9 @@ import 'package:apple_shop/core/widgets/loading_widget.dart';
 import 'package:apple_shop/features/feat_home/presentation/bloc/home_bloc.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_banner.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_category.dart';
-import 'package:apple_shop/features/feat_home/presentation/widgets/home_header.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_hotest_product.dart';
 import 'package:apple_shop/features/feat_home/presentation/widgets/home_bestseller_product.dart';
+import 'package:apple_shop/features/feat_home/presentation/widgets/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +66,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
               // home header
               if (state is HomeCompleted) ...[
-                const HomeHeader(),
+                const SliverToBoxAdapter(
+                  child: HomeSearchBar(
+                    isNavigate: true,
+                  ),
+                ),
               ],
 
               // home banner

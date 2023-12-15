@@ -16,6 +16,7 @@ abstract class IProductDatasource {
   Future<List<VariantType>> getVariantTypes();
   Future<List<ProductVariant>> getProductVariants(String productId);
   Future<List<PropertyModel>> getProperties(String productId);
+  Future<List<ProductModel>> getAllProducts();
   // Future<int> getProductFinalPrice(ProductModel product);
 }
 
@@ -170,6 +171,21 @@ class ProductRemoteDatasource extends IProductDatasource {
           .toList();
     } on DioError catch (_) {
       throw ApiExeption('مشخصات فنی برای این محصول وجود ندارد');
+    } catch (_) {
+      throw ApiExeption('مشکلی در سرور پیش آمده');
+    }
+  }
+
+  // get all products
+  @override
+  Future<List<ProductModel>> getAllProducts() async {
+    try {
+      var response = await dio.get('collections/products/records');
+      return response.data['items']
+          .map<ProductModel>((jsonObject) => ProductModel.fromJson(jsonObject))
+          .toList();
+    } on DioError catch (_) {
+      throw ApiExeption('لیست محصولات از دسترس خارج شده');
     } catch (_) {
       throw ApiExeption('مشکلی در سرور پیش آمده');
     }
